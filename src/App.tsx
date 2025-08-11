@@ -64,13 +64,13 @@ function CompassSVG() {
   return (
     <svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Pocket Producer intro animation">
       <motion.circle cx="80" cy="80" r="50" className="fill-background" stroke={ACCENT_HEX} strokeWidth="3" initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.4 }}/>
-      <motion.g
-        initial={{ rotate: -90 }}
-        animate={{ rotate: [-90, 40, -20, 10, 0] }}
-        transition={{ duration: 1.2, ease: "easeOut", times: [0, 0.25, 0.45, 0.7, 1] }}
-        style={{ transformOrigin: "center", transformBox: "fill-box" }}
-      >
-       <polygon points="80,40 85,80 80,120 75,80" fill={ACCENT_HEX} />
+       <motion.g
+         initial={{ rotate: 0 }}
+         animate={{ rotate: 360 }}
+         transition={{ repeat: Infinity, duration: 1.1, ease: "linear" }}
+         style={{ transformOrigin: "center", transformBox: "fill-box" }}
+       >
+         <polygon points="80,40 85,80 80,120 75,80" fill={ACCENT_HEX} />
       </motion.g>
     </svg>
   );
