@@ -15,7 +15,7 @@ import { Toggle } from "./components/ui/toggle";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./components/ui/dialog";
 import { Checkbox } from "./components/ui/checkbox";
 
-const ACCENT_HEX = "#FAD4C0"; // pastel peach
+const ACCENT_HEX = "#bf8ed1"; // pastel peach
 const ACCENT_FG = "#2F1E1C";
 
 function StyleInjector() {
