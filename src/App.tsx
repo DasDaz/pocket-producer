@@ -1,23 +1,24 @@
 
-/*
- Release 1 — 2025-08-11
- Baseline: v3.1 (stable) — pastel peach accent, simplified compass splash, Tag Picker dialog, header without icon.
-*/
 import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Filter, ExternalLink, Tags, X, Users2, CalendarCheck, LineChart, Brain, HeartPulse, RefreshCw } from "lucide-react";
-import { Input } from "./components/ui/input";
-import { Button } from "./components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "./components/ui/card";
-import { Badge } from "./components/ui/badge";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./components/ui/dropdown-menu";
-import { Toggle } from "./components/ui/toggle";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./components/ui/dialog";
-import { Checkbox } from "./components/ui/checkbox";
+import { Search, Filter, ExternalLink, Tags, X, Users2, CalendarCheck, LineChart, Brain, HeartPulse, RefreshCw, CheckCircle2, MinusCircle } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Toggle } from "@/components/ui/toggle";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 
+/*
+  Release 1.1 — Adds clickable tags (apply filter) + minimal Pros/Cons on cards.
+  Keeps: pastel peach accent, simplified compass splash, header without icon, tag dialog, icon groups.
+*/
+
+// THEME
 const ACCENT_HEX = "#FAD4C0"; // pastel peach
-const ACCENT_FG = "#2F1E1C";
-
+const ACCENT_FG = "#2F1E1C"; // readable on peach
 function StyleInjector() {
   return (
     <style>{`
@@ -29,7 +30,66 @@ function StyleInjector() {
   );
 }
 
-// Debounce
+// TAGS (for type inference only)
+const TAGS = [
+  "project management",
+  "visualization",
+  "team health",
+  "retrospectives",
+  "risk management",
+  "estimation",
+  "workflows",
+  "roadmapping",
+  "capacity planning",
+  "feedback",
+  "onboarding",
+  "automation",
+  "dashboards",
+  "playtesting",
+  "documentation",
+  "communication",
+  "scheduling",
+  "bug tracking",
+  "community",
+  "templates",
+] as const;
+export type Tag = typeof TAGS[number] | string;
+
+// ICON FILTER GROUPS
+const ICON_FILTERS: { key: string; label: string; description: string; icon: React.ElementType; tags: Tag[]; }[] = [
+  { key: "planning", label: "Planning", description: "Roadmaps, estimation, capacity", icon: CalendarCheck, tags: ["roadmapping", "estimation", "scheduling", "capacity planning"] },
+  { key: "people", label: "People", description: "Team health, onboarding, feedback", icon: Users2, tags: ["team health", "onboarding", "feedback", "communication"] },
+  { key: "delivery", label: "Delivery", description: "Workflows, bug tracking, automation", icon: RefreshCw, tags: ["workflows", "bug tracking", "automation"] },
+  { key: "insight", label: "Insight", description: "Dashboards, visualization, research", icon: LineChart, tags: ["dashboards", "visualization", "playtesting"] },
+  { key: "quality", label: "Quality", description: "Retros, risk, templates", icon: HeartPulse, tags: ["retrospectives", "risk management", "templates"] },
+  { key: "knowledge", label: "Knowledge", description: "Docs, community, learning", icon: Brain, tags: ["documentation", "community"] },
+];
+
+// DATA TYPES
+export type ToolCard = {
+  id: string;
+  title: string;
+  summary: string;
+  tags: Tag[];
+  link: string;
+  thumbnail: string;
+  authorNote?: string;
+  // NEW 2.0 fields (optional)
+  pros?: string[];
+  cons?: string[];
+};
+
+// SAMPLE DATA
+const TOOL_DATA: ToolCard[] = [
+  { id: "story-map-101", title: "Story Mapping 101", summary: "Visualize features along a backbone and slices for scope alignment.", tags: ["visualization", "planning", "roadmapping", "documentation"], link: "https://example.com/story-mapping", thumbnail: "https://picsum.photos/seed/storymap/640/360", authorNote: "Great for defining vertical slices.", pros: ["Shared language", "Clarifies slices"], cons: ["Needs facilitation"] },
+  { id: "retro-card-pack", title: "Retro Card Pack", summary: "Prompt cards for healthier retros and concrete experiments.", tags: ["retrospectives", "team health", "templates", "feedback"], link: "https://example.com/retro-cards", thumbnail: "https://picsum.photos/seed/retro/640/360", pros: ["Low prep"], cons: ["Can feel gimmicky if overused"] },
+  { id: "scope-slicer", title: "Scope Slicer", summary: "Impact/Effort matrix to cut scope quickly pre-demo.", tags: ["risk management", "workflows", "planning"], link: "https://example.com/scope-slicer", thumbnail: "https://picsum.photos/seed/scope/640/360", pros: ["Fast to teach", "Demo-friendly"], cons: ["Subjective scoring"] },
+  { id: "playtest-discord", title: "Playtest Discord Finder", summary: "Directory of Discords to recruit playtesters fast.", tags: ["playtesting", "community", "feedback", "communication"], link: "https://example.com/playtest-discord", thumbnail: "https://picsum.photos/seed/discord/640/360" },
+  { id: "jira-quickflows", title: "Jira Quickflows", summary: "Minimal Jira workflows with lightweight automation.", tags: ["workflows", "automation", "bug tracking", "documentation"], link: "https://example.com/jira-quickflows", thumbnail: "https://picsum.photos/seed/jira/640/360" },
+  { id: "capacity-lite", title: "Capacity Lite", summary: "One‑pager to model capacity with vacations & events.", tags: ["capacity planning", "scheduling", "project management", "templates"], link: "https://example.com/capacity-lite", thumbnail: "https://picsum.photos/seed/capacity/640/360" },
+];
+
+// UTIL
 function useDebounced<T>(value: T, delay = 200) {
   const [debounced, setDebounced] = useState(value);
   useEffect(() => { const t = setTimeout(() => setDebounced(value), delay); return () => clearTimeout(t); }, [value, delay]);
@@ -46,7 +106,7 @@ function useQuerySync(filters: string[], tags: string[], q: string) {
   }, [filters, tags, q]);
 }
 
-// Splash (simple compass only)
+// SPLASH — simplified compass (unchanged visuals)
 function Splash({ onDone }: { onDone: () => void }) {
   useEffect(() => { const t = setTimeout(onDone, 1800); return () => clearTimeout(t); }, [onDone]);
   return (
@@ -60,74 +120,16 @@ function Splash({ onDone }: { onDone: () => void }) {
 }
 function CompassSVG() {
   return (
-    <svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Pocket Producer intro animation">
+    <svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Pocket Producer intro">
       <motion.circle cx="80" cy="80" r="50" className="fill-background" stroke={ACCENT_HEX} strokeWidth="3" initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.4 }}/>
-      <motion.g style={{ transformOrigin: "80px 80px" }}
-        animate={{ rotate: [-90, 40, -20, 10, 0] }}
-        transition={{ duration: 1.2, ease: "easeOut", times: [0, 0.25, 0.45, 0.7, 1] }}>
+      <motion.g style={{ transformOrigin: "center", transformBox: "fill-box" }}>
         <polygon points="80,40 85,80 80,120 75,80" fill={ACCENT_HEX} />
       </motion.g>
     </svg>
   );
 }
 
-// Data
-type Tag = string;
-type ToolCardT = { id: string; title: string; summary: string; tags: Tag[]; link: string; thumbnail: string; authorNote?: string; };
-const TOOL_DATA: ToolCardT[] = [
-  { id: "story-map-101", title: "Story Mapping 101", summary: "Visualize features along a backbone and slices for scope alignment.", tags: ["visualization", "planning", "roadmapping", "documentation"], link: "https://example.com/story-mapping", thumbnail: "https://picsum.photos/seed/storymap/640/360", authorNote: "Great for defining vertical slices." },
-  { id: "retro-card-pack", title: "Retro Card Pack", summary: "Prompt cards for healthier retros and concrete experiments.", tags: ["retrospectives", "team health", "templates", "feedback"], link: "https://example.com/retro-cards", thumbnail: "https://picsum.photos/seed/retro/640/360" },
-  { id: "scope-slicer", title: "Scope Slicer", summary: "Impact/Effort matrix to cut scope quickly pre-demo.", tags: ["risk management", "workflows", "planning"], link: "https://example.com/scope-slicer", thumbnail: "https://picsum.photos/seed/scope/640/360" },
-  { id: "playtest-discord", title: "Playtest Discord Finder", summary: "Directory of Discords to recruit playtesters fast.", tags: ["playtesting", "community", "feedback", "communication"], link: "https://example.com/playtest-discord", thumbnail: "https://picsum.photos/seed/discord/640/360" },
-  { id: "jira-quickflows", title: "Jira Quickflows", summary: "Minimal Jira workflows with lightweight automation.", tags: ["workflows", "automation", "bug tracking", "documentation"], link: "https://example.com/jira-quickflows", thumbnail: "https://picsum.photos/seed/jira/640/360" },
-  { id: "capacity-lite", title: "Capacity Lite", summary: "One‑pager to model capacity with vacations & events.", tags: ["capacity planning", "scheduling", "project management", "templates"], link: "https://example.com/capacity-lite", thumbnail: "https://picsum.photos/seed/capacity/640/360" },
-];
-
-const ICON_FILTERS = [
-  { key: "planning", label: "Planning", tags: ["roadmapping", "estimation", "scheduling", "capacity planning"], icon: CalendarCheck },
-  { key: "people", label: "People", tags: ["team health", "onboarding", "feedback", "communication"], icon: Users2 },
-  { key: "delivery", label: "Delivery", tags: ["workflows", "bug tracking", "automation"], icon: RefreshCw },
-  { key: "insight", label: "Insight", tags: ["dashboards", "visualization", "playtesting"], icon: LineChart },
-  { key: "quality", label: "Quality", tags: ["retrospectives", "risk management", "templates"], icon: HeartPulse },
-  { key: "knowledge", label: "Knowledge", tags: ["documentation", "community"], icon: Brain },
-] as const;
-
-const IconPill: React.FC<{ active?: boolean; icon: React.ElementType; label: string; onClick: () => void; }> = ({ active, icon: Icon, label, onClick }) => (
-  <Toggle pressed={!!active} onPressedChange={onClick} aria-label={label} className="flex items-center gap-2 rounded-2xl px-3 py-2 pp-hover">
-    <Icon className="h-4 w-4" />
-    <span className="hidden sm:inline text-sm">{label}</span>
-  </Toggle>
-);
-
-const ToolCardView: React.FC<{ tool: ToolCardT }>= ({ tool }) => (
-  <motion.div layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow rounded-2xl">
-      <div className="aspect-video w-full bg-gray-100 overflow-hidden">
-        <img src={tool.thumbnail} alt={`${tool.title} thumbnail`} className="h-full w-full object-cover" />
-      </div>
-      <CardHeader className="pb-2">
-        <CardTitle className="text-base sm:text-lg flex items-center justify-between gap-2">
-          <span className="line-clamp-1">{tool.title}</span>
-          <a href={tool.link} target="_blank" rel="noreferrer" aria-label={`Open source for ${tool.title}`} className="shrink-0 pp-link">
-            <Button size="icon" variant="ghost"><ExternalLink className="h-4 w-4" /></Button>
-          </a>
-        </CardTitle>
-        <CardDescription className="line-clamp-3 text-sm">{tool.summary}</CardDescription>
-      </CardHeader>
-      <CardContent className="pt-0 pb-4">
-        <div className="flex flex-wrap gap-2">
-          {tool.tags.slice(0, 5).map((t) => (
-            <Badge key={t} variant="outline" className="rounded-full text-xs">{t}</Badge>
-          ))}
-        </div>
-        {tool.authorNote && (
-          <p className="mt-3 text-xs text-muted-foreground italic">Note: {tool.authorNote}</p>
-        )}
-      </CardContent>
-    </Card>
-  </motion.div>
-);
-
+// TAG PICKER (dialog)
 function TagPicker({ allTags, activeTags, setActiveTags }: { allTags: string[]; activeTags: string[]; setActiveTags: (v: string[]) => void; }) {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
@@ -135,9 +137,7 @@ function TagPicker({ allTags, activeTags, setActiveTags }: { allTags: string[]; 
     const query = q.trim().toLowerCase();
     return allTags.filter(t => t.toLowerCase().includes(query));
   }, [q, allTags]);
-  const toggle = (t: string) => {
-    setActiveTags(activeTags.includes(t) ? activeTags.filter(x => x !== t) : [...activeTags, t]);
-  };
+  const toggle = (t: string) => setActiveTags(activeTags.includes(t) ? activeTags.filter(x => x !== t) : [...activeTags, t]);
   const clear = () => setActiveTags([]);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -155,7 +155,7 @@ function TagPicker({ allTags, activeTags, setActiveTags }: { allTags: string[]; 
           </div>
           <div className="max-h-64 overflow-auto rounded-xl border p-2 grid grid-cols-1 sm:grid-cols-2 gap-1">
             {filtered.map((t) => (
-              <label key={t} className="flex items-center gap-2 cursor-pointer px-2 py-1 rounded-lg hover:bg-gray-50">
+              <label key={t} className="flex items-center gap-2 cursor-pointer px-2 py-1 rounded-lg hover:bg-muted/50">
                 <Checkbox checked={activeTags.includes(t)} onCheckedChange={() => toggle(t)} />
                 <span className="text-sm">{t}</span>
               </label>
@@ -174,13 +174,88 @@ function TagPicker({ allTags, activeTags, setActiveTags }: { allTags: string[]; 
   );
 }
 
-export default function App() {
+// SUB-COMPONENTS
+const IconPill: React.FC<{ active?: boolean; icon: React.ElementType; label: string; onClick: () => void; }> = ({ active, icon: Icon, label, onClick }) => (
+  <Toggle pressed={!!active} onPressedChange={onClick} aria-label={label} className="flex items-center gap-2 rounded-2xl px-3 py-2 pp-hover data-[state=on]:bg-primary data-[state=on]:text-primary-foreground">
+    <Icon className="h-4 w-4" />
+    <span className="hidden sm:inline text-sm">{label}</span>
+  </Toggle>
+);
+
+// UPDATED: accepts onTagClick and renders Pros/Cons
+const ToolCardView: React.FC<{ tool: ToolCard; onTagClick?: (tag: string) => void }>= ({ tool, onTagClick }) => (
+  <motion.div layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
+    <Card className="overflow-hidden hover:shadow-lg transition-shadow rounded-2xl">
+      <a href={tool.link} target="_blank" rel="noreferrer" aria-label={`Open source for ${tool.title}`}>
+        <div className="aspect-video w-full bg-muted/40 overflow-hidden">
+          <img src={tool.thumbnail} alt={`${tool.title} thumbnail`} className="h-full w-full object-cover" />
+        </div>
+      </a>
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base sm:text-lg flex items-center justify-between gap-2">
+          <span className="line-clamp-1">{tool.title}</span>
+          <a href={tool.link} target="_blank" rel="noreferrer" className="shrink-0 pp-link">
+            <Button size="icon" variant="ghost"><ExternalLink className="h-4 w-4" /></Button>
+          </a>
+        </CardTitle>
+        <CardDescription className="line-clamp-3 text-sm">{tool.summary}</CardDescription>
+      </CardHeader>
+      <CardContent className="pt-0 pb-4">
+        {/* Clickable tags */}
+        <div className="flex flex-wrap gap-2">
+          {tool.tags.slice(0, 5).map((t) => (
+            <button
+              key={t}
+              onClick={() => onTagClick?.(t)}
+              className="rounded-full border px-2.5 py-1 text-xs hover:bg-[var(--primary)]/20 transition"
+              aria-label={`Filter by ${t}`}
+              title={`Filter by ${t}`}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+        {(tool.pros?.length || tool.cons?.length) ? (
+          <div className="mt-3 grid grid-cols-1 gap-2 text-xs">
+            {tool.pros?.length ? (
+              <div className="flex flex-col gap-1">
+                {tool.pros.slice(0, 3).map((p, i) => (
+                  <div key={i} className="flex items-start gap-2">
+                    <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
+                    <span>{p}</span>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+            {tool.cons?.length ? (
+              <div className="flex flex-col gap-1">
+                {tool.cons.slice(0, 3).map((c, i) => (
+                  <div key={i} className="flex items-start gap-2">
+                    <MinusCircle className="h-3.5 w-3.5 shrink-0" />
+                    <span>{c}</span>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+        {tool.authorNote && (
+          <p className="mt-3 text-xs text-muted-foreground italic">Note: {tool.authorNote}</p>
+        )}
+      </CardContent>
+    </Card>
+  </motion.div>
+);
+
+// MAIN APP
+export default function PocketProducerApp() {
   const [query, setQuery] = useState("");
   const [activeGroups, setActiveGroups] = useState<string[]>([]);
   const [activeTags, setActiveTags] = useState<string[]>([]);
   const [sort, setSort] = useState<"title" | "recent">("title");
   const [showSplash, setShowSplash] = useState(true);
 
+  // Load from URL on first render
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const groups = params.get("groups")?.split(",").filter(Boolean) ?? [];
@@ -220,15 +295,19 @@ export default function App() {
     <div className="min-h-screen bg-background text-foreground">
       <StyleInjector />
       <AnimatePresence>{showSplash && (<Splash onDone={() => setShowSplash(false)} />)}</AnimatePresence>
-      <header className="sticky top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-b">
+
+      {/* Header */}
+      <header className="sticky top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b">
         <div className="mx-auto max-w-6xl px-3 sm:px-4 py-3 flex items-center gap-2">
           <h1 className="text-lg sm:text-xl font-semibold tracking-tight">The Pocket Producer</h1>
           <span className="ml-auto hidden sm:inline text-sm text-muted-foreground">Indie-first • Minimal • Mobile-friendly</span>
         </div>
       </header>
 
+      {/* Controls */}
       <section className="mx-auto max-w-6xl px-3 sm:px-4 py-4">
         <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+          {/* Search */}
           <div className="flex-1">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -236,23 +315,31 @@ export default function App() {
             </div>
           </div>
 
+          {/* Sort */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="rounded-2xl pp-hover pp-focus"><Filter className="h-4 w-4 mr-2"/>Sort</Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => setSort("title")}>Title (A→Z)</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setSort("recent")}>Recently Added</DropdownMenuItem>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => setSort("title")}>
+                Title (A→Z)
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSort("recent")}>
+                Recently Added
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* Tag Picker Button */}
           <TagPicker allTags={allTags} activeTags={activeTags} setActiveTags={setActiveTags} />
 
+          {/* Reset */}
           {(activeGroups.length || activeTags.length || query) ? (
             <Button variant="ghost" onClick={resetFilters} className="rounded-2xl">Reset</Button>
           ) : null}
         </div>
 
+        {/* Icon Groups */}
         <div className="mt-3 flex flex-wrap gap-2">
           {ICON_FILTERS.map((g) => (
             <IconPill key={g.key} active={activeGroups.includes(g.key)} icon={g.icon} label={g.label}
@@ -261,9 +348,15 @@ export default function App() {
           ))}
         </div>
 
+        {/* Active Filters */}
         <AnimatePresence>
           {(activeTags.length > 0 || activeGroups.length > 0) && (
-            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="mt-2">
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mt-2"
+            >
               <div className="flex items-center flex-wrap gap-2">
                 {activeGroups.map((k) => {
                   const grp = ICON_FILTERS.find((g) => g.key === k)!;
@@ -287,19 +380,25 @@ export default function App() {
         </AnimatePresence>
       </section>
 
+      {/* Results */}
       <main className="mx-auto max-w-6xl px-3 sm:px-4 pb-10">
         {filtered.length === 0 ? (
           <EmptyState onReset={resetFilters} />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             <AnimatePresence>
-              {filtered.map((t) => (<ToolCardView key={t.id} tool={t} />))}
+              {filtered.map((t) => (
+                <ToolCardView key={t.id} tool={t} onTagClick={(tag) => setActiveTags((prev) => prev.includes(tag) ? prev : [...prev, tag])} />
+              ))}
             </AnimatePresence>
           </div>
         )}
 
+        {/* Footer helper */}
         <div className="mt-10 text-center text-sm text-muted-foreground">
-          <p>Add or edit content in <code>TOOL_DATA</code>. Icon groups live in <code>ICON_FILTERS</code>.</p>
+          <p>
+            Add or edit content in <code>TOOL_DATA</code>. Icon groups live in <code>ICON_FILTERS</code>.
+          </p>
           <p className="mt-1">Designed mobile-first. Try it on your phone ✨</p>
         </div>
       </main>

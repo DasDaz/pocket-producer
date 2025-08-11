@@ -7,7 +7,9 @@ export default {
       colors: {
         background: '#ffffff',
         foreground: '#111111',
-      }
+        muted: '#f5f5f5',
+        'muted-foreground': '#666666',
+      },
     },
   },
   plugins: [],

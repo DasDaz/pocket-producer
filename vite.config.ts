@@ -1,10 +1,14 @@
 
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { fileURLToPath, URL } from 'node:url'
 
-// If you use the default GitHub Pages URL, keep base as '/pocket-producer/'.
-// If you use a custom domain, change base to '/'.
 export default defineConfig({
   base: '/',
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    }
+  },
   plugins: [react()]
 })
