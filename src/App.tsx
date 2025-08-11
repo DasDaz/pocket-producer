@@ -17,7 +17,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 */
 
 // THEME
-const ACCENT_HEX = "#FAD4C0"; // pastel peach
+const ACCENT_HEX = "#ffac80"; // pastel peach FAD4C0
 const ACCENT_FG = "#2F1E1C"; // readable on peach
 function StyleInjector() {
   return (
