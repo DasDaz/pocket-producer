@@ -4,7 +4,7 @@
  Baseline: v3.1 (stable) — pastel peach accent, simplified compass splash, Tag Picker dialog, header without icon.
 */
 import React, { useEffect, useMemo, useState } from "react";
-import { motion, AnimatePresence, MotionConfig } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Search, Filter, ExternalLink, Tags, X, Users2, CalendarCheck, LineChart, Brain, HeartPulse, RefreshCw } from "lucide-react";
 import { Input } from "./components/ui/input";
 import { Button } from "./components/ui/button";
@@ -49,28 +49,23 @@ function useQuerySync(filters: string[], tags: string[], q: string) {
 // Splash (simple compass only)
 function Splash({ onDone }: { onDone: () => void }) {
   useEffect(() => { const t = setTimeout(onDone, 1800); return () => clearTimeout(t); }, [onDone]);
-return (
-  <MotionConfig reducedMotion="never">
+  return (
     <motion.div className="fixed inset-0 z-50 flex items-center justify-center bg-background"
       initial={{ opacity: 1 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onDone}>
       <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 160, damping: 14 }}>
         <CompassSVG />
       </motion.div>
     </motion.div>
-  </MotionConfig>
-);
+  );
 }
 function CompassSVG() {
   return (
     <svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Pocket Producer intro animation">
       <motion.circle cx="80" cy="80" r="50" className="fill-background" stroke={ACCENT_HEX} strokeWidth="3" initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.4 }}/>
-       <motion.g
-         initial={{ rotate: 0 }}
-         animate={{ rotate: 360 }}
-         transition={{ repeat: Infinity, duration: 1.1, ease: "linear" }}
-         style={{ transformOrigin: "center", transformBox: "fill-box" }}
-       >
-         <polygon points="80,40 85,80 80,120 75,80" fill={ACCENT_HEX} />
+      <motion.g style={{ transformOrigin: "80px 80px" }}
+        animate={{ rotate: [-90, 40, -20, 10, 0] }}
+        transition={{ duration: 1.2, ease: "easeOut", times: [0, 0.25, 0.45, 0.7, 1] }}>
+        <polygon points="80,40 85,80 80,120 75,80" fill={ACCENT_HEX} />
       </motion.g>
     </svg>
   );
