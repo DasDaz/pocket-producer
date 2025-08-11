@@ -15,7 +15,7 @@ import { Toggle } from "./components/ui/toggle";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./components/ui/dialog";
 import { Checkbox } from "./components/ui/checkbox";
 
-const ACCENT_HEX = "#bf8ed1"; // pastel peach
+const ACCENT_HEX = "#FAD4C0"; // pastel peach
 const ACCENT_FG = "#2F1E1C";
 
 function StyleInjector() {
@@ -222,7 +222,7 @@ export default function App() {
       <AnimatePresence>{showSplash && (<Splash onDone={() => setShowSplash(false)} />)}</AnimatePresence>
       <header className="sticky top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-b">
         <div className="mx-auto max-w-6xl px-3 sm:px-4 py-3 flex items-center gap-2">
-          <h1 className="text-lg sm:text-xl font-semibold tracking-tight">The Pocket Producer</h1>
+          <h1 className="text-lg sm:text-xl font-semibold tracking-tight">The Pocket Producer.</h1>
           <span className="ml-auto hidden sm:inline text-sm text-muted-foreground">Indie-first • Minimal • Mobile-friendly</span>
         </div>
       </header>
