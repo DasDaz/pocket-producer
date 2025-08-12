@@ -130,7 +130,6 @@ useEffect(() => {
       </motion.div>
     </motion.div>
   );
-}
 
 function PocketSplashFlat() {
   const rim = ACCENT_HEX;    // peach
