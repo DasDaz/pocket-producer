@@ -136,13 +136,13 @@ function Splash({ onDone }: { onDone: () => void }) {
 function PocketSplashFlat() {
   const rim = ACCENT_HEX;      // pastel peach (stitches, rim, needle)
   const cloth = "#FFF7F2";     // warm fabric
-  const seam = ACCENT_HEX;     // pocket outline
-  const inner = "#ffffff";     // inner pocket grey (tweak to taste)
+  const seam = ACCENT_HEX;     // outline
+  // const shadow = "#00000010"; // ground shadow (removed)
 
   // Downward pocket mouth (dip in the middle)
   const MOUTH_PATH = "M78 92 Q120 106 162 92";
 
-  // Outer pocket (rounded-bottom with flat bottom edge)
+  // Rounded-bottom pocket (flat bottom w/ rounded corners)
   const POCKET_PATH =
     "M78 92 " +
     "Q120 106 162 92 " +
@@ -152,50 +152,53 @@ function PocketSplashFlat() {
     "A12 12 0 0 1 78 148 " +
     "L78 92 Z";
 
-  // NEW: Inner pocket panel (no curve on top; slightly inset; rounded bottom)
-  // Sits entirely inside the outer pocket and starts just under the mouth line.
-  const INNER_PATH =
-    "M82 94 " +                  // start slightly inside left rim, just below the mouth
-    "L158 94 " +                 // straight top edge (no curve)
-    "L158 146 " +                // right side down to corner start
-    "A10 10 0 0 1 148 156 " +    // bottom-right rounded corner (smaller radius than outer)
-    "H92 " +                     // flat bottom edge
-    "A10 10 0 0 1 82 146 " +     // bottom-left rounded corner
-    "L82 94 Z";                  // left side up and close
-
   return (
     <svg width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Compass sliding into pocket (flat)">
-      {/* BACK FABRIC */}
+      {/* --- defs: inner gradient & clip of pocket --- */}
+      <defs>
+        {/* Vertical inner fade: darker near the mouth, fades toward bottom */}
+        <linearGradient id="pocketInnerGrad" x1="0" y1="92" x2="0" y2="160">
+          <stop offset="0" stopColor="#000" stopOpacity="0.14" />
+          <stop offset="0.5" stopColor="#000" stopOpacity="0.07" />
+          <stop offset="1" stopColor="#000" stopOpacity="0" />
+        </linearGradient>
+        {/* Clip to keep shading strictly inside the pocket */}
+        <clipPath id="pocketClip">
+          <path d={POCKET_PATH} />
+        </clipPath>
+      </defs>
+
+      {/* Pocket back (base fabric) */}
       <path d={POCKET_PATH} fill={cloth} stroke="transparent" />
 
-      {/* INNER DEPTH PANEL (BEHIND COMPASS) */}
-      <path d={INNER_PATH} fill={inner} stroke="none" />
+      {/* Inner depth (behind the compass) */}
+      <g clipPath="url(#pocketClip)">
+        <rect x="70" y="80" width="92" height="76" fill="url(#pocketInnerGrad)" />
+        <path d={MOUTH_PATH} stroke="#000" strokeWidth="4" opacity="0.06" fill="none" />
+      </g>
 
-      {/* COMPASS (SLIDES IN FRONT OF INNER PANEL) */}
+      {/* Compass slides in (peeks out) */}
       <motion.g
         initial={{ y: -50 }}
-        animate={{ y: 10 }}                 // stops early so it peeks out
+        animate={{ y: 10 }}
         transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
       >
         <circle cx="120" cy="110" r="34" fill="#fff" stroke={rim} strokeWidth="4" />
-        {/* ticks */}
         <rect x="119" y="74" width="2" height="8" fill={rim} />
         <rect x="119" y="138" width="2" height="8" fill={rim} />
         <rect x="86"  y="109" width="8" height="2" fill={rim} />
         <rect x="146" y="109" width="8" height="2" fill={rim} />
-        {/* needle + cap */}
         <polygon points="120,82 124,110 120,138 116,110" fill={rim} />
         <circle cx="120" cy="110" r="2.6" fill={rim} />
       </motion.g>
 
-      {/* FRONT POCKET + HIGHLIGHT (COVERS COMPASS LOWER HALF) */}
+      {/* Pocket front + highlight */}
       <g>
-        <path d={POCKET_PATH} fill="transparent" stroke={seam} strokeWidth="2.5" />
-        {/* lip highlight along the downward curve */}
+        <path d={POCKET_PATH} fill={cloth} stroke={seam} strokeWidth="2.5" />
         <path d={MOUTH_PATH} stroke="#FFFFFF" strokeWidth="2" opacity="0.6" fill="none" />
       </g>
 
-      {/* PEACH STITCHING */}
+      {/* Peach stitching */}
       <path
         d={MOUTH_PATH}
         stroke={rim}
@@ -204,10 +207,16 @@ function PocketSplashFlat() {
         strokeDasharray="5 5"
         strokeLinecap="round"
       />
+
+      {/* Subtle settle bounce */}
+      <motion.g
+        initial={{ scale: 1 }}
+        animate={{ scale: [1, 1.02, 1] }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 1.0 }}
+      />
     </svg>
   );
 }
-
 
 // TAG PICKER (dialog)
 function TagPicker({ allTags, activeTags, setActiveTags }: { allTags: string[]; activeTags: string[]; setActiveTags: (v: string[]) => void; }) {
