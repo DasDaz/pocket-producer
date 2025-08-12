@@ -133,40 +133,59 @@ function Splash({ onDone }: { onDone: () => void }) {
   );
 }
 
-function PocketSplashSimple() {
-  const rim = ACCENT_HEX;   // pastel peach
-  const cloth = "#ffffff";  // pocket fill
-  const seam = "#111111";   // pocket outline
+function PocketSplashFlat() {
+  const rim = ACCENT_HEX;    // peach
+  const cloth = "#FFF7F2";   // warm fabric (optional)
+  const seam = "#1F1F1F";    // outline
+  const shadow = "#00000010";
+
+  // New: rounded-bottom pocket path (flat bottom with rounded corners)
+  const POCKET_PATH =
+    "M78 92 " +                 // start at left mouth
+    "Q120 78 162 92 " +         // curved mouth
+    "L162 148 " +               // right side down to corner start
+    "A12 12 0 0 1 150 160 " +   // bottom-right corner (radius 12)
+    "H90 " +                    // flat bottom edge
+    "A12 12 0 0 1 78 148 " +    // bottom-left corner (radius 12)
+    "L78 92 Z";                 // back up to mouth and close
 
   return (
-    <svg width="220" height="220" viewBox="0 0 220 220" role="img" aria-label="Compass sliding into pocket">
-      {/* Compass (behind pocket front) */}
+    <svg width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Compass sliding into pocket (flat)">
+      {/* ground shadow */}
+      <ellipse cx="120" cy="170" rx="56" ry="12" fill={shadow} />
+
+      {/* Compass slides in a bit less so it peeks out */}
       <motion.g
-        initial={{ y: -40 }}
-        animate={{ y: 18 }}
-        transition={{ duration: 0.9, ease: "easeOut" }}
+        initial={{ y: -46 }}
+        animate={{ y: 10 }}                 // <- was ~16; smaller number = stops higher (more visible)
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
       >
-        <circle cx="110" cy="100" r="30" fill="#fff" stroke={rim} strokeWidth="3" />
-        <polygon points="110,76 114,100 110,124 106,100" fill={rim} />
+        <circle cx="120" cy="110" r="34" fill="#fff" stroke={rim} strokeWidth="4" />
+        {/* ticks */}
+        <rect x="119" y="74" width="2" height="8" fill={rim} />
+        <rect x="119" y="138" width="2" height="8" fill={rim} />
+        <rect x="86"  y="109" width="8" height="2" fill={rim} />
+        <rect x="146" y="109" width="8" height="2" fill={rim} />
+        {/* needle + cap */}
+        <polygon points="120,82 124,110 120,138 116,110" fill={rim} />
+        <circle cx="120" cy="110" r="2.6" fill={rim} />
       </motion.g>
 
-      {/* Pocket back */}
-      <path d="M70 80 Q110 66 150 80 L150 90 Q150 140 110 154 Q70 140 70 90 Z"
-            fill={cloth} stroke="transparent" />
+      {/* Pocket back (for lip depth) */}
+      <path d={POCKET_PATH} fill={cloth} stroke="transparent" />
 
       {/* Pocket front */}
-      <path d="M70 80 Q110 66 150 80 L150 90 Q150 140 110 154 Q70 140 70 90 Z"
-            fill={cloth} stroke={seam} strokeWidth="2" />
+      <g>
+        <path d={POCKET_PATH} fill={cloth} stroke={seam} strokeWidth="2.5" />
+        {/* lip highlight */}
+        <path d="M78 92 Q120 78 162 92" stroke="#FFFFFF" strokeWidth="2" opacity="0.6" fill="none" />
+      </g>
 
-      {/* Stitching */}
-      <path d="M70 80 Q110 66 150 80" stroke={rim} strokeWidth="2" fill="none" strokeDasharray="4 4" />
+      {/* stitching on mouth */}
+      <path d="M78 92 Q120 78 162 92" stroke={rim} strokeWidth="2" fill="none" strokeDasharray="5 5" strokeLinecap="round" />
 
-      {/* Bounce */}
-      <motion.g
-        initial={{ scale: 1 }}
-        animate={{ scale: [1, 1.02, 1] }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-      />
+      {/* subtle settle bounce */}
+      <motion.g initial={{ scale: 1 }} animate={{ scale: [1, 1.02, 1] }} transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 1.0 }} />
     </svg>
   );
 }
