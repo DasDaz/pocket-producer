@@ -110,7 +110,7 @@ function useQuerySync(filters: string[], tags: string[], q: string) {
 
 function Splash({ onDone }: { onDone: () => void }) {
   useEffect(() => {
-    const t = setTimeout(onDone, 2200); // slightly longer to let the slide finish
+    const t = setTimeout(onDone, 2200);
     return () => clearTimeout(t);
   }, [onDone]);
 
@@ -134,30 +134,33 @@ function Splash({ onDone }: { onDone: () => void }) {
 }
 
 function PocketSplashFlat() {
-  const rim = ACCENT_HEX;    // peach
-  const cloth = "#FFF7F2";   // warm fabric (optional)
-  const seam = "#1F1F1F";    // outline
-  const shadow = "#00000010";
+  const rim = ACCENT_HEX;      // pastel peach
+  const cloth = "#FFF7F2";     // warm fabric
+  const seam = "#1F1F1F";      // outline
+  const shadow = "#00000010";  // ground shadow
 
-  // Rounded-bottom pocket path (flat bottom with rounded corners)
+  // ↓↓↓ Downward pocket mouth (control point Y > 92 makes a dip)
+  const MOUTH_PATH = "M78 92 Q120 106 162 92";
+
+  // Rounded-bottom pocket using same mouth path, flat bottom with rounded corners
   const POCKET_PATH =
-    "M78 92 " +                 // start at left mouth
-    "Q120 78 162 92 " +         // curved mouth
-    "L162 148 " +               // right side down to corner start
-    "A12 12 0 0 1 150 160 " +   // bottom-right corner (radius 12)
-    "H90 " +                    // flat bottom edge
-    "A12 12 0 0 1 78 148 " +    // bottom-left corner (radius 12)
-    "L78 92 Z";                 // back up to mouth and close
+    "M78 92 " +                  // left mouth
+    "Q120 106 162 92 " +         // ↓ dip in the middle
+    "L162 148 " +                // right side
+    "A12 12 0 0 1 150 160 " +    // bottom-right corner
+    "H90 " +                     // flat bottom
+    "A12 12 0 0 1 78 148 " +     // bottom-left corner
+    "L78 92 Z";                  // back to start
 
   return (
     <svg width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Compass sliding into pocket (flat)">
       {/* ground shadow */}
       <ellipse cx="120" cy="170" rx="56" ry="12" fill={shadow} />
 
-      {/* Compass slides in a bit less so it peeks out */}
+      {/* Compass slides in (stops early so it peeks out) */}
       <motion.g
         initial={{ y: -46 }}
-        animate={{ y: 10 }} // smaller value = stops higher (more visible)
+        animate={{ y: 10 }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
       >
         <circle cx="120" cy="110" r="34" fill="#fff" stroke={rim} strokeWidth="4" />
@@ -174,15 +177,15 @@ function PocketSplashFlat() {
       {/* Pocket back (for lip depth) */}
       <path d={POCKET_PATH} fill={cloth} stroke="transparent" />
 
-      {/* Pocket front */}
+      {/* Pocket front + highlight */}
       <g>
         <path d={POCKET_PATH} fill={cloth} stroke={seam} strokeWidth="2.5" />
-        {/* lip highlight */}
-        <path d="M78 92 Q120 78 162 92" stroke="#FFFFFF" strokeWidth="2" opacity="0.6" fill="none" />
+        {/* lip highlight follows the same downward curve */}
+        <path d={MOUTH_PATH} stroke="#FFFFFF" strokeWidth="2" opacity="0.6" fill="none" />
       </g>
 
-      {/* stitching on mouth */}
-      <path d="M78 92 Q120 78 162 92" stroke={rim} strokeWidth="2" fill="none" strokeDasharray="5 5" strokeLinecap="round" />
+      {/* stitching along the mouth (use same path so it matches) */}
+      <path d={MOUTH_PATH} stroke={rim} strokeWidth="2" fill="none" strokeDasharray="5 5" strokeLinecap="round" />
 
       {/* subtle settle bounce */}
       <motion.g
