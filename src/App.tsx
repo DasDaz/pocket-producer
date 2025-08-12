@@ -136,7 +136,7 @@ function Splash({ onDone }: { onDone: () => void }) {
 function PocketSplashFlat() {
   const rim = ACCENT_HEX;      // pastel peach (stitches, rim, needle)
   const cloth = "#FFF7F2";     // warm fabric
-  const seam = "#1F1F1F";      // outline
+  const seam = ACCENT_HEX;      // outline
   const shadow = "#00000010";  // ground shadow
 
   // Downward pocket mouth (dip in the middle)
