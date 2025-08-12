@@ -53,6 +53,7 @@ const TAGS = [
   "bug tracking",
   "community",
   "templates",
+  "recommended",
 ] as const;
 export type Tag = typeof TAGS[number] | string;
 
@@ -87,7 +88,7 @@ const TOOL_DATA: ToolCard[] = [
   { id: "scope-slicer", title: "Scope Slicer", summary: "Impact/Effort matrix to cut scope quickly pre-demo.", tags: ["risk management", "workflows", "planning"], link: "https://example.com/scope-slicer", thumbnail: "https://picsum.photos/seed/scope/640/360", pros: ["Fast to teach", "Demo-friendly"], cons: ["Subjective scoring"] },
   { id: "playtest-discord", title: "Playtest Discord Finder", summary: "Directory of Discords to recruit playtesters fast.", tags: ["playtesting", "community", "feedback", "communication"], link: "https://example.com/playtest-discord", thumbnail: "https://picsum.photos/seed/discord/640/360" },
   { id: "jira-quickflows", title: "Jira Quickflows", summary: "Minimal Jira workflows with lightweight automation.", tags: ["workflows", "automation", "bug tracking", "documentation"], link: "https://example.com/jira-quickflows", thumbnail: "https://picsum.photos/seed/jira/640/360" },
-  { id: "capacity-lite", title: "Capacity Lite", summary: "One‑pager to model capacity with vacations & events.", tags: ["capacity planning", "scheduling", "project management", "templates"], link: "https://example.com/capacity-lite", thumbnail: "https://picsum.photos/seed/capacity/640/360" },
+  { id: "capacity-lite", title: "Capacity Lite", summary: "One‑pager to model capacity with vacations & events.", tags: ["capacity planning", "scheduling", "project management", "templates", "recommended"], link: "https://example.com/capacity-lite", thumbnail: "https://picsum.photos/seed/capacity/640/360" },
 ];
 
 // UTIL
@@ -186,7 +187,12 @@ const IconPill: React.FC<{ active?: boolean; icon: React.ElementType; label: str
 // UPDATED: accepts onTagClick and renders Pros/Cons
 const ToolCardView: React.FC<{ tool: ToolCard; onTagClick?: (tag: string) => void }>= ({ tool, onTagClick }) => (
   <motion.div layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow rounded-2xl">
+    <Card className="relative overflow-hidden hover:shadow-lg transition-shadow rounded-2xl">
+        {tool.tags.includes("recommended") && (
+          <div className="absolute left-2 top-2 rounded-b-md rounded-tr-md bg-[var(--primary)] text-[var(--primary-foreground)] px-2 py-1 text-[10px] font-medium shadow">
+            Recommended
+          </div>
+        )}
       <a href={tool.link} target="_blank" rel="noreferrer" aria-label={`Open source for ${tool.title}`}>
         <div className="aspect-video w-full bg-muted/40 overflow-hidden">
           <img src={tool.thumbnail} alt={`${tool.title} thumbnail`} className="h-full w-full object-cover" />
