@@ -33,38 +33,76 @@ function StyleInjector() {
 
 // TAGS (for type inference only)
 const TAGS = [
-  "project management",
-  "visualization",
-  "team health",
-  "retrospectives",
-  "risk management",
-  "estimation",
-  "workflows",
-  "roadmapping",
+  "automation",
+  "books",
+  "bug tracking",
   "capacity planning",
+  "communication",
+  "community",
+  "dashboards",
+  "documentation",
+  "estimation",
   "feedback",
   "onboarding",
-  "automation",
-  "dashboards",
   "playtesting",
-  "documentation",
-  "communication",
-  "scheduling",
-  "bug tracking",
-  "community",
-  "templates",
+  "podcast",
+  "project management",
   "recommended",
+  "retrospectives",
+  "risk management",
+  "roadmapping",
+  "scheduling",
+  "team health",
+  "templates",
+  "visualization",
+  "workflows",
 ] as const;
 export type Tag = typeof TAGS[number] | string;
 
 // ICON FILTER GROUPS
 const ICON_FILTERS: { key: string; label: string; description: string; icon: React.ElementType; tags: Tag[]; }[] = [
-  { key: "planning", label: "Planning", description: "Roadmaps, estimation, capacity", icon: CalendarCheck, tags: ["roadmapping", "estimation", "scheduling", "capacity planning"] },
-  { key: "people", label: "People", description: "Team health, onboarding, feedback", icon: Users2, tags: ["team health", "onboarding", "feedback", "communication"] },
-  { key: "delivery", label: "Delivery", description: "Workflows, bug tracking, automation", icon: RefreshCw, tags: ["workflows", "bug tracking", "automation"] },
-  { key: "insight", label: "Insight", description: "Dashboards, visualization, research", icon: LineChart, tags: ["dashboards", "visualization", "playtesting"] },
-  { key: "quality", label: "Quality", description: "Retros, risk, templates", icon: HeartPulse, tags: ["retrospectives", "risk management", "templates"] },
-  { key: "knowledge", label: "Knowledge", description: "Docs, community, learning", icon: Brain, tags: ["documentation", "community"] },
+  { 
+    key: "planning", 
+    label: "Planning", 
+    description: "Roadmaps, estimation, scheduling, capacity", 
+    icon: CalendarCheck, 
+    tags: ["roadmapping", "estimation", "scheduling", "capacity planning", "project management"] 
+  },
+  { 
+    key: "people", 
+    label: "People", 
+    description: "Team health, onboarding, communication, feedback", 
+    icon: Users2, 
+    tags: ["team health", "onboarding", "feedback", "communication"] 
+  },
+  { 
+    key: "delivery", 
+    label: "Delivery", 
+    description: "Workflows, automation, bug tracking", 
+    icon: RefreshCw, 
+    tags: ["workflows", "automation", "bug tracking"] 
+  },
+  { 
+    key: "insight", 
+    label: "Insight", 
+    description: "Dashboards, visualization, playtesting", 
+    icon: LineChart, 
+    tags: ["dashboards", "visualization", "playtesting"] 
+  },
+  { 
+    key: "quality", 
+    label: "Quality", 
+    description: "Retrospectives, risk management, templates", 
+    icon: HeartPulse, 
+    tags: ["retrospectives", "risk management", "templates"] 
+  },
+  { 
+    key: "knowledge", 
+    label: "Knowledge", 
+    description: "Books, podcasts, documentation, community, learning", 
+    icon: Brain, 
+    tags: ["books", "podcast", "documentation", "community", "recommended"] 
+  }
 ];
 
 // DATA TYPES
