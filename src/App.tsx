@@ -1,7 +1,7 @@
-
+  
 import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Filter, ExternalLink, Tags, X, Users2, CalendarCheck, LineChart, Brain, HeartPulse, RefreshCw, CheckCircle2, MinusCircle } from "lucide-react";
+import { Search, Filter, ExternalLink, Tags, X, Users2, CalendarCheck, LineChart, Brain, HeartPulse, RefreshCw, CheckCircle2, MinusCircle, Coffee } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -19,6 +19,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 // THEME
 const ACCENT_HEX = "#ffac80"; // pastel peach FAD4C0
 const ACCENT_FG = "#2F1E1C"; // readable on peach
+const BUY_ME_A_COFFEE_URL = "https://buymeacoffee.com/dasdaz";
 function StyleInjector() {
   return (
     <style>{`
@@ -400,6 +401,13 @@ export default function PocketProducerApp() {
             Add or edit content in <code>TOOL_DATA</code>. Icon groups live in <code>ICON_FILTERS</code>.
           </p>
           <p className="mt-1">Designed mobile-first. Try it on your phone ✨</p>
+        </div>
+        <div className="mt-6 flex justify-center">
+          <a href={BUY_ME_A_COFFEE_URL} target="_blank" rel="noreferrer">
+          <Button className="rounded-full px-4 py-2">
+            <Coffee className="h-4 w-4 mr-2" /> Buy me a coffee
+        </Button>
+        </a>
         </div>
       </main>
     </div>
