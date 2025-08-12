@@ -1,7 +1,7 @@
   
 import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Filter, ExternalLink, Tags, X, Users2, CalendarCheck, LineChart, Brain, HeartPulse, RefreshCw, CheckCircle2, MinusCircle, Coffee } from "lucide-react";
+import { Search, Filter, ExternalLink, Tags, X, Users2, CalendarCheck, LineChart, Brain, HeartPulse, RefreshCw, CheckCircle2, MinusCircle, Coffee, Heart } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -187,13 +187,15 @@ const IconPill: React.FC<{ active?: boolean; icon: React.ElementType; label: str
 // UPDATED: accepts onTagClick and renders Pros/Cons
 const ToolCardView: React.FC<{ tool: ToolCard; onTagClick?: (tag: string) => void }>= ({ tool, onTagClick }) => (
   <motion.div layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
-      <Card className="relative overflow-hidden hover:shadow-lg transition-shadow rounded-2xl">
-        {tool.tags.includes("recommended") && (
-          <div className="absolute left-2 top-2">
-            <span className="inline-flex items-center rounded-full bg-[var(--primary)] text-[var(--primary-foreground)] px-2.5 py-1 text-[10px] font-medium shadow ring-1 ring-[var(--primary)]/40 whitespace-nowrap">
-              Favorite!
-            </span>
-          </div>
+<Card className="relative overflow-hidden hover:shadow-lg transition-shadow rounded-2xl">
+  {tool.tags.includes("recommended") && (
+    <div className="absolute left-2 top-2">
+      <Heart
+        className="h-5 w-5 p-0.5 rounded-full bg-[var(--primary)] text-[var(--primary-foreground)] shadow"
+        strokeWidth={2}
+      />
+    </div>
+  )}
         )}
       <a href={tool.link} target="_blank" rel="noreferrer" aria-label={`Open source for ${tool.title}`}>
         <div className="aspect-video w-full bg-muted/40 overflow-hidden">
