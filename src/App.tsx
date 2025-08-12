@@ -199,7 +199,7 @@ function PocketSplashFlat() {
         <polygon
           points="120,82 124,110 120,138 116,110"
           fill={rim}
-          transform="rotate(-35 120 110)"  // negative = clockwise → NE
+          transform="rotate(35 120 110)"  // negative = clockwise → NE
         />
         <circle cx="120" cy="110" r="2.6" fill={rim} />
       </motion.g>
