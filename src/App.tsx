@@ -161,7 +161,7 @@ function PocketSplashFlat() {
       <motion.g
         initial={{ y: -46 }}
         animate={{ y: 10 }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
       >
         <circle cx="120" cy="110" r="34" fill="#fff" stroke={rim} strokeWidth="4" />
         {/* ticks */}
