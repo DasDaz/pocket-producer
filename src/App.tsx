@@ -190,13 +190,15 @@ const ToolCardView: React.FC<{ tool: ToolCard; onTagClick?: (tag: string) => voi
 <Card className="relative overflow-hidden hover:shadow-lg transition-shadow rounded-2xl">
   {tool.tags.includes("recommended") && (
     <div className="absolute left-2 top-2">
-      <Heart
-        className="h-5 w-5 p-0.5 rounded-full bg-[var(--primary)] text-[var(--primary-foreground)] shadow"
-        strokeWidth={2}
-      />
+      <div
+        className="rounded-full bg-[var(--primary)] text-[var(--primary-foreground)] p-1 shadow ring-1 ring-[var(--primary)]/40"
+        title="Recommended"
+        aria-label="Recommended"
+      >
+        <Heart className="h-4 w-4" strokeWidth={2} />
+      </div>
     </div>
   )}
-        )}
       <a href={tool.link} target="_blank" rel="noreferrer" aria-label={`Open source for ${tool.title}`}>
         <div className="aspect-video w-full bg-muted/40 overflow-hidden">
           <img src={tool.thumbnail} alt={`${tool.title} thumbnail`} className="h-full w-full object-cover" />
