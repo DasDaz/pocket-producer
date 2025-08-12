@@ -137,7 +137,7 @@ function PocketSplashFlat() {
   const rim = ACCENT_HEX;      // pastel peach (stitches, rim, needle)
   const cloth = "#FFF7F2";     // warm fabric
   const seam = ACCENT_HEX;     // pocket outline
-  const inner = "#E9E9EE";     // inner pocket grey (tweak to taste)
+  const inner = "#ffffff";     // inner pocket grey (tweak to taste)
 
   // Downward pocket mouth (dip in the middle)
   const MOUTH_PATH = "M78 92 Q120 106 162 92";
