@@ -127,63 +127,50 @@ function Splash({ onDone }: { onDone: () => void }) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.25 }}
       >
-        <PocketSplashFlat />
+        <PocketSplashSimple />
       </motion.div>
     </motion.div>
   );
 }
 
-function PocketSplashFlat() {
-  const rim = ACCENT_HEX;    // pastel peach
-  const cloth = "#ffffff";   // pocket fill
-  const seam = "#151515";    // pocket outline
-  const shadow = "#0000000f";
+function PocketSplashSimple() {
+  const rim = ACCENT_HEX;   // pastel peach
+  const cloth = "#ffffff";  // pocket fill
+  const seam = "#111111";   // pocket outline
 
   return (
-    <svg width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Compass sliding into pocket (flat style)">
-      {/* Shadow */}
-      <ellipse cx="120" cy="168" rx="54" ry="10" fill={shadow} />
-
-      {/* Compass */}
+    <svg width="220" height="220" viewBox="0 0 220 220" role="img" aria-label="Compass sliding into pocket">
+      {/* Compass (behind pocket front) */}
       <motion.g
-        initial={{ y: -45 }}
-        animate={{ y: 16 }}
-        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ y: -40 }}
+        animate={{ y: 18 }}
+        transition={{ duration: 0.9, ease: "easeOut" }}
       >
-        <circle cx="120" cy="108" r="34" fill="#fff" stroke={rim} strokeWidth="4" />
-        {/* Cardinal ticks */}
-        <rect x="119" y="72" width="2" height="8" fill={rim} />
-        <rect x="119" y="136" width="2" height="8" fill={rim} />
-        <rect x="84" y="107" width="8" height="2" fill={rim} />
-        <rect x="148" y="107" width="8" height="2" fill={rim} />
-        {/* Needle */}
-        <polygon points="120,80 124,108 120,136 116,108" fill={rim} />
-        <circle cx="120" cy="108" r="2.6" fill={rim} />
+        <circle cx="110" cy="100" r="30" fill="#fff" stroke={rim} strokeWidth="3" />
+        <polygon points="110,76 114,100 110,124 106,100" fill={rim} />
       </motion.g>
 
       {/* Pocket back */}
-      <path d="M78 88 Q120 74 162 88 L162 100 Q162 154 120 170 Q78 154 78 100 Z"
+      <path d="M70 80 Q110 66 150 80 L150 90 Q150 140 110 154 Q70 140 70 90 Z"
             fill={cloth} stroke="transparent" />
 
       {/* Pocket front */}
-      <path d="M78 88 Q120 74 162 88 L162 100 Q162 154 120 170 Q78 154 78 100 Z"
-            fill={cloth} stroke={seam} strokeWidth="2.5" />
-
-      {/* Lip highlight */}
-      <path d="M78 88 Q120 74 162 88" stroke="#ffffff" strokeWidth="2" opacity="0.65" />
+      <path d="M70 80 Q110 66 150 80 L150 90 Q150 140 110 154 Q70 140 70 90 Z"
+            fill={cloth} stroke={seam} strokeWidth="2" />
 
       {/* Stitching */}
-      <path d="M78 88 Q120 74 162 88" stroke={rim} strokeWidth="2" fill="none" strokeDasharray="5 5" />
+      <path d="M70 80 Q110 66 150 80" stroke={rim} strokeWidth="2" fill="none" strokeDasharray="4 4" />
 
       {/* Bounce */}
       <motion.g
         initial={{ scale: 1 }}
-        animate={{ scale: [1, 1.025, 1] }}
-        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 1.0 }}
+        animate={{ scale: [1, 1.02, 1] }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.9 }}
       />
     </svg>
   );
 }
+
 
 // TAG PICKER (dialog)
 function TagPicker({ allTags, activeTags, setActiveTags }: { allTags: string[]; activeTags: string[]; setActiveTags: (v: string[]) => void; }) {
