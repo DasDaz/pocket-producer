@@ -137,7 +137,7 @@ function PocketSplashFlat() {
   const rim = ACCENT_HEX;      // pastel peach (stitches, rim, needle)
   const cloth = "#FFF7F2";     // warm fabric
   const seam = ACCENT_HEX;      // outline
-  const shadow = "#00000010";  // ground shadow
+  //  const shadow = "#00000010";  // ground shadow
 
   // Downward pocket mouth (dip in the middle)
   const MOUTH_PATH = "M78 92 Q120 106 162 92";
@@ -154,8 +154,8 @@ function PocketSplashFlat() {
 
   return (
     <svg width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Compass sliding into pocket (flat)">
-      {/* Soft ground shadow */}
-      <ellipse cx="120" cy="170" rx="56" ry="12" fill={shadow} />
+      // {/* Soft ground shadow */}
+      // <ellipse cx="120" cy="170" rx="56" ry="12" fill={shadow} />
 
       {/* --- defs: inner gradient & clip of pocket --- */}
       <defs>
@@ -177,7 +177,7 @@ function PocketSplashFlat() {
       {/* NEW: inner depth (behind the compass) */}
       <g clipPath="url(#pocketClip)">
         {/* Fill inside pocket with gradient shadow */}
-        <rect x="70" y="90" width="92" height="76" fill="url(#pocketInnerGrad)" />
+        <rect x="70" y="85" width="92" height="76" fill="url(#pocketInnerGrad)" />
         {/* Slight darker band just under the mouth for extra depth */}
         <path d={MOUTH_PATH} stroke="#000" strokeWidth="4" opacity="0.06" fill="none" />
       </g>
