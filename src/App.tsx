@@ -173,7 +173,7 @@ function PocketSplashFlat() {
 
       {/* Inner depth (behind the compass) */}
       <g clipPath="url(#pocketClip)">
-        <rect x="70" y="80" width="92" height="76" fill="url(#pocketInnerGrad)" />
+        <rect x="70" y="70" width="92" height="76" fill="url(#pocketInnerGrad)" />
         <path d={MOUTH_PATH} stroke="#000" strokeWidth="4" opacity="0.06" fill="none" />
       </g>
 
