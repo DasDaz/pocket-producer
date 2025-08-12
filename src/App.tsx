@@ -187,10 +187,12 @@ const IconPill: React.FC<{ active?: boolean; icon: React.ElementType; label: str
 // UPDATED: accepts onTagClick and renders Pros/Cons
 const ToolCardView: React.FC<{ tool: ToolCard; onTagClick?: (tag: string) => void }>= ({ tool, onTagClick }) => (
   <motion.div layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
-    <Card className="relative overflow-hidden hover:shadow-lg transition-shadow rounded-2xl">
+      <Card className="relative overflow-hidden hover:shadow-lg transition-shadow rounded-2xl">
         {tool.tags.includes("recommended") && (
-          <div className="absolute left-2 top-2 rounded-b-md rounded-tr-md bg-[var(--primary)] text-[var(--primary-foreground)] px-2 py-1 text-[10px] font-medium shadow">
-            Recommended
+          <div className="absolute left-2 top-2">
+            <span className="inline-flex items-center rounded-full bg-[var(--primary)] text-[var(--primary-foreground)] px-2.5 py-1 text-[10px] font-medium shadow ring-1 ring-[var(--primary)]/40 whitespace-nowrap">
+              Favorite!
+            </span>
           </div>
         )}
       <a href={tool.link} target="_blank" rel="noreferrer" aria-label={`Open source for ${tool.title}`}>
