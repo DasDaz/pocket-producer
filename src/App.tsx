@@ -110,7 +110,7 @@ function useQuerySync(filters: string[], tags: string[], q: string) {
 
 function Splash({ onDone }: { onDone: () => void }) {
   useEffect(() => {
-    const t = setTimeout(onDone, 1800);
+    const t = setTimeout(onDone, 2500);
     return () => clearTimeout(t);
   }, [onDone]);
 
@@ -165,7 +165,7 @@ function PocketSplashSimple() {
       <motion.g
         initial={{ scale: 1 }}
         animate={{ scale: [1, 1.02, 1] }}
-        transition={{ duration: 0.4, ease: "easeOut", delay: 0.9 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
       />
     </svg>
   );
