@@ -159,7 +159,7 @@ function PocketSplashFlat() {
 
       {/* Compass slides in (stops early so it peeks out) */}
       <motion.g
-        initial={{ y: -46 }}
+        initial={{ y: -50 }}
         animate={{ y: 10 }}
         transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
       >
