@@ -191,7 +191,7 @@ const ToolCardView: React.FC<{ tool: ToolCard; onTagClick?: (tag: string) => voi
   {tool.tags.includes("recommended") && (
     <div className="absolute left-2 top-2">
       <div
-        className="rounded-full bg-[var(--primary)] text-[var(--primary-foreground)] p-1 shadow ring-1 ring-[var(--primary)]/40"
+        className="rounded-full bg-white text-[var(--primary)] p-1 shadow ring-1 ring-[var(--primary)]/40"
         title="Recommended"
         aria-label="Recommended"
       >
