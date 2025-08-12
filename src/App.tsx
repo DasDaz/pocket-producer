@@ -136,8 +136,7 @@ function Splash({ onDone }: { onDone: () => void }) {
 function PocketSplashFlat() {
   const rim = ACCENT_HEX;      // pastel peach (stitches, rim, needle)
   const cloth = "#FFF7F2";     // warm fabric
-  const seam = ACCENT_HEX;      // outline
-  //  const shadow = "#00000010";  // ground shadow
+  const seam = ACCENT_HEX;     // outline
 
   // Downward pocket mouth (dip in the middle)
   const MOUTH_PATH = "M78 92 Q120 106 162 92";
@@ -153,16 +152,19 @@ function PocketSplashFlat() {
     "L78 92 Z";
 
   return (
-    <svg width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Compass sliding into pocket (flat)">
-      // {/* Soft ground shadow */}
-      // <ellipse cx="120" cy="170" rx="56" ry="12" fill={shadow} />
-
-      {/* --- defs: inner gradient & clip of pocket --- */}
+    <svg
+      width="240"
+      height="240"
+      viewBox="0 0 240 240"
+      role="img"
+      aria-label="Compass sliding into pocket (flat)"
+    >
+      {/* --- defs: lighter inner gradient & clip of pocket --- */}
       <defs>
-        {/* Vertical inner fade: darker near the mouth, fades toward bottom */}
+        {/* Vertical inner fade: softer values than before */}
         <linearGradient id="pocketInnerGrad" x1="0" y1="92" x2="0" y2="160">
-          <stop offset="0" stopColor="#000" stopOpacity="0.14" />
-          <stop offset="0.5" stopColor="#000" stopOpacity="0.07" />
+          <stop offset="0" stopColor="#000" stopOpacity="0.06" />
+          <stop offset="0.5" stopColor="#000" stopOpacity="0.03" />
           <stop offset="1" stopColor="#000" stopOpacity="0" />
         </linearGradient>
         {/* Clip to keep shading strictly inside the pocket */}
@@ -174,15 +176,14 @@ function PocketSplashFlat() {
       {/* Pocket back (base fabric) */}
       <path d={POCKET_PATH} fill={cloth} stroke="transparent" />
 
-      {/* NEW: inner depth (behind the compass) */}
+      {/* Inner depth (behind the compass) */}
       <g clipPath="url(#pocketClip)">
-        {/* Fill inside pocket with gradient shadow */}
         <rect x="70" y="85" width="92" height="76" fill="url(#pocketInnerGrad)" />
-        {/* Slight darker band just under the mouth for extra depth */}
-        <path d={MOUTH_PATH} stroke="#000" strokeWidth="4" opacity="0.06" fill="none" />
+        {/* Even lighter dark band under the mouth */}
+        <path d={MOUTH_PATH} stroke="#000" strokeWidth="4" opacity="0.03" fill="none" />
       </g>
 
-      {/* Compass slides in (peeks out) — drawn AFTER inner shadow so it sits in front of it */}
+      {/* Compass slides in (peeks out) */}
       <motion.g
         initial={{ y: -50 }}
         animate={{ y: 10 }}
@@ -192,21 +193,21 @@ function PocketSplashFlat() {
         {/* Cardinal ticks */}
         <rect x="119" y="74" width="2" height="8" fill={rim} />
         <rect x="119" y="138" width="2" height="8" fill={rim} />
-        <rect x="86"  y="109" width="8" height="2" fill={rim} />
+        <rect x="86" y="109" width="8" height="2" fill={rim} />
         <rect x="146" y="109" width="8" height="2" fill={rim} />
         {/* Needle + cap */}
         <polygon points="120,82 124,110 120,138 116,110" fill={rim} />
         <circle cx="120" cy="110" r="2.6" fill={rim} />
       </motion.g>
 
-      {/* Pocket front (on top of compass’s lower half) + highlight */}
+      {/* Pocket front + highlight */}
       <g>
         <path d={POCKET_PATH} fill={cloth} stroke={seam} strokeWidth="2.5" />
-        {/* Lip highlight along the downward curve */}
+        {/* Lip highlight */}
         <path d={MOUTH_PATH} stroke="#FFFFFF" strokeWidth="2" opacity="0.6" fill="none" />
       </g>
 
-      {/* Peach stitching along the mouth */}
+      {/* Peach stitching */}
       <path
         d={MOUTH_PATH}
         stroke={rim}
