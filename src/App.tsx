@@ -148,7 +148,7 @@ function useQuerySync(filters: string[], tags: string[], q: string) {
 
 function Splash({ onDone }: { onDone: () => void }) {
   useEffect(() => {
-    const t = setTimeout(onDone, 2300);
+    const t = setTimeout(onDone, 2000);
     return () => clearTimeout(t);
   }, [onDone]);
 
