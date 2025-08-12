@@ -108,10 +108,11 @@ function useQuerySync(filters: string[], tags: string[], q: string) {
   }, [filters, tags, q]);
 }
 
-useEffect(() => {
-  const t = setTimeout(onDone, 2200); // e.g., 2.2s instead of 1.8s
-  return () => clearTimeout(t);
-}, [onDone]);
+function Splash({ onDone }: { onDone: () => void }) {
+  useEffect(() => {
+    const t = setTimeout(onDone, 2200); // slightly longer to let the slide finish
+    return () => clearTimeout(t);
+  }, [onDone]);
 
   return (
     <motion.div
@@ -126,10 +127,11 @@ useEffect(() => {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.25 }}
       >
-        <PocketSplashSimple />
+        <PocketSplashFlat />
       </motion.div>
     </motion.div>
   );
+}
 
 function PocketSplashFlat() {
   const rim = ACCENT_HEX;    // peach
@@ -137,7 +139,7 @@ function PocketSplashFlat() {
   const seam = "#1F1F1F";    // outline
   const shadow = "#00000010";
 
-  // New: rounded-bottom pocket path (flat bottom with rounded corners)
+  // Rounded-bottom pocket path (flat bottom with rounded corners)
   const POCKET_PATH =
     "M78 92 " +                 // start at left mouth
     "Q120 78 162 92 " +         // curved mouth
@@ -155,7 +157,7 @@ function PocketSplashFlat() {
       {/* Compass slides in a bit less so it peeks out */}
       <motion.g
         initial={{ y: -46 }}
-        animate={{ y: 10 }}                 // <- was ~16; smaller number = stops higher (more visible)
+        animate={{ y: 10 }} // smaller value = stops higher (more visible)
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
       >
         <circle cx="120" cy="110" r="34" fill="#fff" stroke={rim} strokeWidth="4" />
@@ -183,7 +185,11 @@ function PocketSplashFlat() {
       <path d="M78 92 Q120 78 162 92" stroke={rim} strokeWidth="2" fill="none" strokeDasharray="5 5" strokeLinecap="round" />
 
       {/* subtle settle bounce */}
-      <motion.g initial={{ scale: 1 }} animate={{ scale: [1, 1.02, 1] }} transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 1.0 }} />
+      <motion.g
+        initial={{ scale: 1 }}
+        animate={{ scale: [1, 1.02, 1] }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 1.0 }}
+      />
     </svg>
   );
 }
