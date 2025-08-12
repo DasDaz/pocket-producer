@@ -110,7 +110,7 @@ function useQuerySync(filters: string[], tags: string[], q: string) {
 
 function Splash({ onDone }: { onDone: () => void }) {
   useEffect(() => {
-    const t = setTimeout(onDone, 2200);
+    const t = setTimeout(onDone, 2300);
     return () => clearTimeout(t);
   }, [onDone]);
 
@@ -134,60 +134,89 @@ function Splash({ onDone }: { onDone: () => void }) {
 }
 
 function PocketSplashFlat() {
-  const rim = ACCENT_HEX;      // pastel peach
+  const rim = ACCENT_HEX;      // pastel peach (stitches, rim, needle)
   const cloth = "#FFF7F2";     // warm fabric
   const seam = "#1F1F1F";      // outline
   const shadow = "#00000010";  // ground shadow
 
-  // ↓↓↓ Downward pocket mouth (control point Y > 92 makes a dip)
+  // Downward pocket mouth (dip in the middle)
   const MOUTH_PATH = "M78 92 Q120 106 162 92";
 
-  // Rounded-bottom pocket using same mouth path, flat bottom with rounded corners
+  // Rounded-bottom pocket (flat bottom w/ rounded corners)
   const POCKET_PATH =
-    "M78 92 " +                  // left mouth
-    "Q120 106 162 92 " +         // ↓ dip in the middle
-    "L162 148 " +                // right side
-    "A12 12 0 0 1 150 160 " +    // bottom-right corner
-    "H90 " +                     // flat bottom
-    "A12 12 0 0 1 78 148 " +     // bottom-left corner
-    "L78 92 Z";                  // back to start
+    "M78 92 " +
+    "Q120 106 162 92 " +
+    "L162 148 " +
+    "A12 12 0 0 1 150 160 " +
+    "H90 " +
+    "A12 12 0 0 1 78 148 " +
+    "L78 92 Z";
 
   return (
     <svg width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Compass sliding into pocket (flat)">
-      {/* ground shadow */}
+      {/* Soft ground shadow */}
       <ellipse cx="120" cy="170" rx="56" ry="12" fill={shadow} />
 
-      {/* Compass slides in (stops early so it peeks out) */}
+      {/* --- defs: inner gradient & clip of pocket --- */}
+      <defs>
+        {/* Vertical inner fade: darker near the mouth, fades toward bottom */}
+        <linearGradient id="pocketInnerGrad" x1="0" y1="92" x2="0" y2="160">
+          <stop offset="0" stopColor="#000" stopOpacity="0.14" />
+          <stop offset="0.5" stopColor="#000" stopOpacity="0.07" />
+          <stop offset="1" stopColor="#000" stopOpacity="0" />
+        </linearGradient>
+        {/* Clip to keep shading strictly inside the pocket */}
+        <clipPath id="pocketClip">
+          <path d={POCKET_PATH} />
+        </clipPath>
+      </defs>
+
+      {/* Pocket back (base fabric) */}
+      <path d={POCKET_PATH} fill={cloth} stroke="transparent" />
+
+      {/* NEW: inner depth (behind the compass) */}
+      <g clipPath="url(#pocketClip)">
+        {/* Fill inside pocket with gradient shadow */}
+        <rect x="70" y="90" width="92" height="76" fill="url(#pocketInnerGrad)" />
+        {/* Slight darker band just under the mouth for extra depth */}
+        <path d={MOUTH_PATH} stroke="#000" strokeWidth="4" opacity="0.06" fill="none" />
+      </g>
+
+      {/* Compass slides in (peeks out) — drawn AFTER inner shadow so it sits in front of it */}
       <motion.g
         initial={{ y: -50 }}
         animate={{ y: 10 }}
         transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
       >
         <circle cx="120" cy="110" r="34" fill="#fff" stroke={rim} strokeWidth="4" />
-        {/* ticks */}
+        {/* Cardinal ticks */}
         <rect x="119" y="74" width="2" height="8" fill={rim} />
         <rect x="119" y="138" width="2" height="8" fill={rim} />
         <rect x="86"  y="109" width="8" height="2" fill={rim} />
         <rect x="146" y="109" width="8" height="2" fill={rim} />
-        {/* needle + cap */}
+        {/* Needle + cap */}
         <polygon points="120,82 124,110 120,138 116,110" fill={rim} />
         <circle cx="120" cy="110" r="2.6" fill={rim} />
       </motion.g>
 
-      {/* Pocket back (for lip depth) */}
-      <path d={POCKET_PATH} fill={cloth} stroke="transparent" />
-
-      {/* Pocket front + highlight */}
+      {/* Pocket front (on top of compass’s lower half) + highlight */}
       <g>
         <path d={POCKET_PATH} fill={cloth} stroke={seam} strokeWidth="2.5" />
-        {/* lip highlight follows the same downward curve */}
+        {/* Lip highlight along the downward curve */}
         <path d={MOUTH_PATH} stroke="#FFFFFF" strokeWidth="2" opacity="0.6" fill="none" />
       </g>
 
-      {/* stitching along the mouth (use same path so it matches) */}
-      <path d={MOUTH_PATH} stroke={rim} strokeWidth="2" fill="none" strokeDasharray="5 5" strokeLinecap="round" />
+      {/* Peach stitching along the mouth */}
+      <path
+        d={MOUTH_PATH}
+        stroke={rim}
+        strokeWidth="2"
+        fill="none"
+        strokeDasharray="5 5"
+        strokeLinecap="round"
+      />
 
-      {/* subtle settle bounce */}
+      {/* Subtle settle bounce */}
       <motion.g
         initial={{ scale: 1 }}
         animate={{ scale: [1, 1.02, 1] }}
