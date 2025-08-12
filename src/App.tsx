@@ -184,11 +184,11 @@ function PocketSplashFlat() {
       </g>
 
       {/* Compass slides in (peeks out) */}
-      <motion.g
-        initial={{ y: -50 }}
-        animate={{ y: 10 }}
-        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-      >
+        <motion.g
+          initial={{ y: -50 }}
+          animate={{ y: 4 }}     // was 10 → stops higher, more of the compass visible
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+        >
         <circle cx="120" cy="110" r="34" fill="#fff" stroke={rim} strokeWidth="4" />
         {/* Cardinal ticks */}
         <rect x="119" y="74" width="2" height="8" fill={rim} />
@@ -196,7 +196,11 @@ function PocketSplashFlat() {
         <rect x="86" y="109" width="8" height="2" fill={rim} />
         <rect x="146" y="109" width="8" height="2" fill={rim} />
         {/* Needle + cap */}
-        <polygon points="120,82 124,110 120,138 116,110" fill={rim} />
+        <polygon
+          points="120,82 124,110 120,138 116,110"
+          fill={rim}
+          transform="rotate(-35 120 110)"  // negative = clockwise → NE
+        />
         <circle cx="120" cy="110" r="2.6" fill={rim} />
       </motion.g>
 
