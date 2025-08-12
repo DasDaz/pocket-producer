@@ -108,11 +108,10 @@ function useQuerySync(filters: string[], tags: string[], q: string) {
   }, [filters, tags, q]);
 }
 
-function Splash({ onDone }: { onDone: () => void }) {
-  useEffect(() => {
-    const t = setTimeout(onDone, 2500);
-    return () => clearTimeout(t);
-  }, [onDone]);
+useEffect(() => {
+  const t = setTimeout(onDone, 2200); // e.g., 2.2s instead of 1.8s
+  return () => clearTimeout(t);
+}, [onDone]);
 
   return (
     <motion.div
