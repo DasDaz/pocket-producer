@@ -1,7 +1,7 @@
   
 import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Filter, ExternalLink, Tags, X, Users2, CalendarCheck, LineChart, Brain, HeartPulse, RefreshCw, CheckCircle2, MinusCircle, Coffee, Heart } from "lucide-react";
+import { Search, Filter, ExternalLink, Tags, X, Users2, CalendarCheck, LineChart, HeartPulse, RefreshCw, CheckCircle2, MinusCircle, Coffee, Heart, Lightbulb } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -33,31 +33,28 @@ function StyleInjector() {
 
 // TAGS (for type inference only)
 const TAGS = [
-  "automation",
-  "books",
-  "bug tracking",
-  "capacity planning",
-  "communication",
-  "community",
-  "dashboards",
-  "documentation",
-  "estimation",
-  "feedback",
-  "onboarding",
-  "playtesting",
-  "podcast",
-  "project management",
-  "recommended",
-  "retrospectives",
-  "risk management",
-  "roadmapping",
-  "scheduling",
-  "team health",
-  "templates",
-  "visualization",
-  "workflows",
-  "localization",
-  "rituals",
+	"benchmark",
+	"books",
+	"communication",
+	"community",
+	"dashboards",
+	"documentation",
+	"feedback",
+	"insight",
+	"localization",
+	"management",
+	"playtesting",
+	"podcast",
+	"project management",
+	"quality",
+	"recommended",
+	"rituals",
+	"roadmapping",
+	"scheduling",
+	"team health",
+	"toolbelt",
+	"visualization",
+	"workflows"
 ] as const;
 export type Tag = typeof TAGS[number] | string;
 
@@ -89,7 +86,7 @@ const ICON_FILTERS: { key: string; label: string; description: string; icon: Rea
     label: "Insight", 
     description: "Dashboards, visualization, playtesting", 
     icon: LineChart, 
-    tags: ["dashboards", "visualization", "playtesting"] 
+    tags: ["dashboards", "visualization", "playtesting", "benchmark"] 
   },
   { 
     key: "quality", 
@@ -102,7 +99,7 @@ const ICON_FILTERS: { key: string; label: string; description: string; icon: Rea
     key: "inspiration", 
     label: "Inspiration", 
     description: "Books, podcasts, learning, community", 
-    icon: Brain, 
+    icon: Lightbulb, 
     tags: ["books", "podcast", "learning", "community"] 
   }
 ];
@@ -328,7 +325,7 @@ const TOOL_DATA: ToolCard[] = [
     id: "newzoo",
     title: "Newzoo",
     summary: "Market intelligence for games, esports, and mobile, with global reports and data.",
-    tags: ["insight", "dashboards", "visualization"],
+    tags: ["insight", "dashboards", "visualization", "benchmark"],
     link: "https://newzoo.com/",
     thumbnail: "/thumbnails/newzoo.webp",
     pros: ["Industry-standard data source"],
@@ -338,7 +335,7 @@ const TOOL_DATA: ToolCard[] = [
     id: "steamdb",
     title: "SteamDB",
     summary: "Tracks Steam game stats, pricing, player counts, and historical data.",
-    tags: ["insight", "dashboards", "visualization"],
+    tags: ["insight", "dashboards", "visualization", "benchmark"],
     link: "https://steamdb.info/",
     thumbnail: "/thumbnails/steamdb.webp",
     pros: ["Up-to-date store and player data"],
@@ -348,7 +345,7 @@ const TOOL_DATA: ToolCard[] = [
     id: "vginsights",
     title: "VG Insights",
     summary: "Indie-focused market research with Steam sales estimates and trends.",
-    tags: ["insight", "dashboards", "visualization", "recommended"],
+    tags: ["insight", "dashboards", "visualization", "benchmark", "recommended"],
     link: "https://vginsights.com/",
     thumbnail: "/thumbnails/vginsights.webp",
     pros: ["Great for indie market research"],
