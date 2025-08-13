@@ -99,11 +99,11 @@ const ICON_FILTERS: { key: string; label: string; description: string; icon: Rea
     tags: ["retrospectives", "risk management", "templates", "localization"] 
   },
   { 
-    key: "knowledge", 
-    label: "Knowledge", 
-    description: "Books, podcasts, documentation, community, learning", 
+    key: "inspiration", 
+    label: "Inspiration", 
+    description: "Books, podcasts, learning, community", 
     icon: Brain, 
-    tags: ["books", "podcast", "documentation", "community", "recommended"] 
+    tags: ["books", "podcast", "learning", "community"] 
   }
 ];
 
@@ -148,7 +148,7 @@ const TOOL_DATA: ToolCard[] = [
     id: "creativity-inc",
     title: "Creativity, Inc.",
     summary: "Pixar’s co-founder shares lessons on building a creative powerhouse, mistakes and all.",
-    tags: ["books", "team health", "communication", "recommended"],
+    tags: ["books", "team health", "communication"],
     link: "https://www.amazon.co.uk/Creativity-Inc-Overcoming-Unseen-Inspiration/dp/0593070100",
     thumbnail: "/thumbnails/creativity-inc.webp",
     pros: ["Rich with real-world leadership stories"],
@@ -158,7 +158,7 @@ const TOOL_DATA: ToolCard[] = [
     id: "coffee-with-butterscotch",
     title: "Coffee with Butterscotch",
     summary: "Three brothers share candid indie dev stories, business lessons, and life with ADHD.",
-    tags: ["podcast", "community", "team health"],
+    tags: ["podcast", "community"],
     link: "https://open.spotify.com/show/27Kgn6OHUaFJrvCVg1ZA7K",
     thumbnail: "/thumbnails/coffee-with-butterscotch.webp",
     pros: ["Honest indie dev perspective", "Entertaining and relatable"],
@@ -178,7 +178,7 @@ const TOOL_DATA: ToolCard[] = [
     id: "gpc-podcast",
     title: "Game Production Community Podcast",
     summary: "Conversations from the GPC Discord, full of production tips, stories, and lessons.",
-    tags: ["podcast", "community"],
+    tags: ["podcast", "community", "learning"],
     link: "https://open.spotify.com/show/4GNbLIr3CaqCrGiTWC41AT",
     thumbnail: "/thumbnails/gpc-podcast.webp",
     pros: ["Community-driven content"],
@@ -368,7 +368,7 @@ const TOOL_DATA: ToolCard[] = [
     id: "untools",
     title: "Untools",
     summary: "Curated collection of thinking tools and frameworks to improve decision-making, problem-solving, and collaboration.",
-    tags: ["knowledge", "workflows", "documentation", "recommended"],
+    tags: ["workflows", "documentation", "rituals", "recommended"],
     link: "https://untools.co/",
     thumbnail: "/thumbnails/untools.webp",
     pros: ["Wide range of practical frameworks"],
@@ -388,7 +388,7 @@ const TOOL_DATA: ToolCard[] = [
     id: "milanote",
     title: "Milanote",
     summary: "A visual workspace for creative projects — great for moodboards, research, and early planning.",
-    tags: ["visualization", "knowledge", "documentation", "recommended"],
+    tags: ["visualization", "documentation"],
     link: "https://milanote.com/",
     thumbnail: "/thumbnails/milanote.webp",
     pros: ["Flexible visual layout"],
