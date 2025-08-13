@@ -633,28 +633,30 @@ const ToolCardView: React.FC<{ tool: ToolCard; onTagClick?: (tag: string) => voi
             </button>
           ))}
         </div>
-        {(tool.pros?.length || tool.cons?.length) ? (
-          <div className="mt-3 grid grid-cols-1 gap-2 text-xs">
-            {tool.pros?.length ? (
-              <div className="flex flex-col gap-1">
-                {tool.pros.slice(0, 3).map((p, i) => (
-                  <div key={i} className="flex items-start gap-2">
-                    <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
-                    <span>{p}</span>
-                  </div>
-                ))}
-              </div>
-            ) : null}
-            {tool.cons?.length ? (
-              <div className="flex flex-col gap-1">
-                {tool.cons.slice(0, 3).map((c, i) => (
-                  <div key={i} className="flex items-start gap-2">
-                    <MinusCircle className="h-3.5 w-3.5 shrink-0" />
-                    <span>{c}</span>
-                  </div>
-                ))}
-              </div>
-            ) : null}
+			{(tool.pros?.length || tool.cons?.length) ? (
+			  <div className="mt-3 grid grid-cols-1 gap-2 text-xs">
+				{tool.pros?.length ? (
+				  <div className="flex flex-col gap-1">
+					{tool.pros.slice(0, 3).map((p, i) => (
+					  <div key={i} className="flex items-start gap-2">
+						<CheckCircle2 className="h-3.5 w-3.5 shrink-0" color="#7ED957" /> {/* pastel green */}
+						<span>{p}</span>
+					  </div>
+					))}
+				  </div>
+				) : null}
+				{tool.cons?.length ? (
+				  <div className="flex flex-col gap-1">
+					{tool.cons.slice(0, 3).map((c, i) => (
+					  <div key={i} className="flex items-start gap-2">
+						<MinusCircle className="h-3.5 w-3.5 shrink-0" color="#FF6B6B" /> {/* pastel red */}
+						<span>{c}</span>
+					  </div>
+					))}
+				  </div>
+				) : null}
+			  </div>
+			) : null}
           </div>
         ) : null}
         {tool.authorNote && (
@@ -814,9 +816,6 @@ export default function PocketProducerApp() {
 
         {/* Footer helper */}
         <div className="mt-10 text-center text-sm text-muted-foreground">
-          <p>
-            Add or edit content in <code>TOOL_DATA</code>. Icon groups live in <code>ICON_FILTERS</code>.
-          </p>
           <p className="mt-1">Designed mobile-first. Try it on your phone ✨</p>
         </div>
         <div className="mt-6 flex justify-center">
