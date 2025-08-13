@@ -124,30 +124,30 @@ export type ToolCard = {
 
 // SAMPLE DATA
 const TOOL_DATA: ToolCard[] = [
- {
+{
     id: "the-culture-map",
     title: "The Culture Map",
-    summary: "Framework for understanding and navigating cultural differences in international teams without relying on stereotypes.",
+    summary: "Helps you work smoothly with international teams by navigating cultural differences without clichés.",
     tags: ["books", "communication", "team health", "recommended"],
     link: "https://www.amazon.co.uk/Culture-Map-Decoding-People-Cultures/dp/1610392760",
     thumbnail: "/thumbnails/the-culture-map.webp",
-    pros: ["Great for multicultural awareness"],
-    cons: ["Less actionable for small, local teams"]
+    pros: ["Great for building cross-cultural trust"],
+    cons: ["Less relevant for small, local teams"]
   },
   {
     id: "the-power-of-moments",
     title: "The Power of Moments",
-    summary: "How to create impactful, memorable experiences and rituals that resonate with teams.",
+    summary: "Shows how to create rituals and milestones that actually feel meaningful for your team.",
     tags: ["books", "team health", "feedback", "rituals"],
     link: "https://www.amazon.co.uk/Power-Moments-Certain-Experiences-Extraordinary/dp/0593079264",
     thumbnail: "/thumbnails/power-of-moments.webp",
-    pros: ["Inspires creative leadership ideas"],
-    cons: ["Requires adaptation to workplace context"]
+    pros: ["Inspires creative ways to celebrate wins"],
+    cons: ["Needs tailoring to your team's culture"]
   },
   {
     id: "creativity-inc",
     title: "Creativity, Inc.",
-    summary: "Pixar co-founder Ed Catmull shares lessons from building one of the world’s most creative companies.",
+    summary: "Pixar’s co-founder shares lessons on building a creative powerhouse, mistakes and all.",
     tags: ["books", "team health", "communication", "recommended"],
     link: "https://www.amazon.co.uk/Creativity-Inc-Overcoming-Unseen-Inspiration/dp/0593070100",
     thumbnail: "/thumbnails/creativity-inc.webp",
@@ -157,7 +157,7 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "coffee-with-butterscotch",
     title: "Coffee with Butterscotch",
-    summary: "Three brothers running a game studio share candid stories about dev, business, and life with ADHD.",
+    summary: "Three brothers share candid indie dev stories, business lessons, and life with ADHD.",
     tags: ["podcast", "community", "team health"],
     link: "https://open.spotify.com/show/27Kgn6OHUaFJrvCVg1ZA7K",
     thumbnail: "/thumbnails/coffee-with-butterscotch.webp",
@@ -167,17 +167,17 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "game-makers-notebook",
     title: "The Game Maker's Notebook",
-    summary: "Interviews with industry leaders about creative processes, challenges, and leadership in games.",
+    summary: "Industry leaders share honest takes on creative processes, challenges, and leadership.",
     tags: ["podcast", "insight", "recommended"],
     link: "https://open.spotify.com/show/2yB9jTRog4XGCKG5bpNZUA",
     thumbnail: "/thumbnails/game-makers-notebook.webp",
     pros: ["High-profile guests", "Industry-proven insights"],
-    cons: ["Long-form episodes require time commitment"]
+    cons: ["Long episodes require time commitment"]
   },
   {
     id: "gpc-podcast",
     title: "Game Production Community Podcast",
-    summary: "Conversations from the GPC Discord community, covering production tips, stories, and lessons.",
+    summary: "Conversations from the GPC Discord, full of production tips, stories, and lessons.",
     tags: ["podcast", "community"],
     link: "https://open.spotify.com/show/4GNbLIr3CaqCrGiTWC41AT",
     thumbnail: "/thumbnails/gpc-podcast.webp",
@@ -187,7 +187,7 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "favro",
     title: "Favro",
-    summary: "Flexible project management tool combining kanban boards, timelines, and docs.",
+    summary: "Flexible project management with kanban boards, timelines, and docs in one place.",
     tags: ["management", "project management", "workflows", "scheduling"],
     link: "https://www.favro.com/",
     thumbnail: "/thumbnails/favro.webp",
@@ -197,7 +197,7 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "asana",
     title: "Asana",
-    summary: "Popular task management platform with strong collaboration features.",
+    summary: "Popular task management tool with strong collaboration features.",
     tags: ["management", "project management", "workflows"],
     link: "https://asana.com/",
     thumbnail: "/thumbnails/asana.webp",
@@ -207,7 +207,7 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "clickup",
     title: "ClickUp",
-    summary: "All-in-one productivity platform for tasks, docs, goals, and more.",
+    summary: "All-in-one platform for tasks, docs, goals, and dashboards.",
     tags: ["management", "project management", "dashboards", "workflows"],
     link: "https://clickup.com/",
     thumbnail: "/thumbnails/clickup.webp",
@@ -217,8 +217,8 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "basecamp",
     title: "Basecamp",
-    summary: "Simple, communication-focused project management tool.",
-    tags: ["communication", "project management"],
+    summary: "Simple, communication-focused project management for teams.",
+    tags: ["management", "communication", "project management"],
     link: "https://basecamp.com/",
     thumbnail: "/thumbnails/basecamp.webp",
     pros: ["Easy to onboard teams"],
@@ -227,17 +227,17 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "notion",
     title: "Notion",
-    summary: "Highly flexible tool for notes, wikis, tasks, and databases.",
+    summary: "Docs, wikis, and tasks in one space — brilliant if kept tidy, chaotic if not.",
     tags: ["management", "project management", "documentation", "recommended"],
     link: "https://www.notion.so/",
     thumbnail: "/thumbnails/notion.webp",
-    pros: ["All-in-one workspace"],
-    cons: ["Can become messy without structure"]
+    pros: ["Holds almost everything in one place"],
+    cons: ["Without structure, chaos creeps in fast"]
   },
   {
     id: "roadmunk",
     title: "Roadmunk",
-    summary: "Purpose-built roadmapping software with multiple visualization options.",
+    summary: "Purpose-built roadmapping with clear visuals and multiple views.",
     tags: ["roadmapping", "dashboards", "project management"],
     link: "https://roadmunk.com/",
     thumbnail: "/thumbnails/roadmunk.webp",
@@ -247,7 +247,7 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "productplan",
     title: "ProductPlan",
-    summary: "Collaborative product roadmapping platform.",
+    summary: "Collaborative roadmapping tool for aligning teams on product plans.",
     tags: ["roadmapping", "dashboards", "project management"],
     link: "https://www.productplan.com/",
     thumbnail: "/thumbnails/productplan.webp",
@@ -257,7 +257,7 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "monday",
     title: "Monday.com",
-    summary: "Work OS for project tracking, task management, and roadmaps.",
+    summary: "Highly visual work OS for tracking projects, tasks, and roadmaps.",
     tags: ["roadmapping", "project management", "dashboards", "workflows"],
     link: "https://monday.com/",
     thumbnail: "/thumbnails/monday.webp",
@@ -267,7 +267,7 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "smartsheet",
     title: "Smartsheet",
-    summary: "Spreadsheet-style platform for managing projects, roadmaps, and workflows.",
+    summary: "Spreadsheet-style tool for managing projects, roadmaps, and workflows.",
     tags: ["roadmapping", "project management", "dashboards", "scheduling"],
     link: "https://www.smartsheet.com/",
     thumbnail: "/thumbnails/smartsheet.webp",
@@ -277,18 +277,18 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "miro",
     title: "Miro",
-    summary: "Online collaborative whiteboard for brainstorming, diagrams, and workshops.",
+    summary: "A giant online whiteboard for brainstorming, mapping, and Post-it chaos.",
     tags: ["visualization", "workflows", "playtesting", "recommended"],
     link: "https://miro.com/",
     thumbnail: "/thumbnails/miro.webp",
-    pros: ["Excellent for decentralized teams"],
-    cons: ["License costs per user quite costly"]
+    pros: ["Makes remote collaboration feel natural"],
+    cons: ["License costs can add up"]
   },
   {
     id: "airtable",
     title: "Airtable",
-    summary: "Database meets spreadsheet, great for organizing and linking complex data.",
-    tags: ["documentation", "dashboards", "project management"],
+    summary: "Database meets spreadsheet — flexible and great for linking complex data.",
+    tags: ["toolbelt", "documentation", "dashboards", "project management"],
     link: "https://www.airtable.com/",
     thumbnail: "/thumbnails/airtable.webp",
     pros: ["Flexible relational database features"],
@@ -297,7 +297,7 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "crowdin",
     title: "Crowdin",
-    summary: "Localization management platform for collaborative translation.",
+    summary: "Manages localization projects with collaborative translation workflows.",
     tags: ["localization", "workflows", "documentation"],
     link: "https://crowdin.com/",
     thumbnail: "/thumbnails/crowdin.webp",
@@ -307,7 +307,7 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "company-of-one",
     title: "Company of One",
-    summary: "Paul Jarvis challenges the growth-at-all-costs mindset, focusing instead on building a sustainable, intentional business that works for you.",
+    summary: "Challenges the growth-at-all-costs mindset and promotes sustainable business.",
     tags: ["books", "project management"],
     link: "https://www.amazon.co.uk/Company-One-Staying-Small-Business/dp/0241470462",
     thumbnail: "/thumbnails/company-of-one.webp",
@@ -317,7 +317,7 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "four-thousand-weeks",
     title: "Four Thousand Weeks",
-    summary: "Oliver Burkeman reframes time management around our finite lifespan, encouraging focus on what truly matters over endless productivity.",
+    summary: "Reframes time management around our finite lifespan — focus on what matters.",
     tags: ["books", "scheduling", "team health"],
     link: "https://www.amazon.co.uk/Four-Thousand-Weeks-Management-Mortals/dp/1847924018",
     thumbnail: "/thumbnails/four-thousand-weeks.webp",
@@ -327,8 +327,8 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "newzoo",
     title: "Newzoo",
-    summary: "Leading market intelligence platform for games, esports, and mobile, offering global market reports, analytics, and forecasts.",
-    tags: ["insight", "dashboards", "visualization", "recommended"],
+    summary: "Market intelligence for games, esports, and mobile, with global reports and data.",
+    tags: ["insight", "dashboards", "visualization"],
     link: "https://newzoo.com/",
     thumbnail: "/thumbnails/newzoo.webp",
     pros: ["Industry-standard data source"],
@@ -337,24 +337,64 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "steamdb",
     title: "SteamDB",
-    summary: "Unofficial but widely used database tracking Steam game statistics, pricing history, player counts, and app metadata.",
+    summary: "Tracks Steam game stats, pricing, player counts, and historical data.",
     tags: ["insight", "dashboards", "visualization"],
     link: "https://steamdb.info/",
     thumbnail: "/thumbnails/steamdb.webp",
     pros: ["Up-to-date store and player data"],
-    cons: ["Unofficial, data accuracy may vary"]
+    cons: ["Unofficial, accuracy may vary"]
   },
   {
     id: "vginsights",
     title: "VG Insights",
-    summary: "Market research platform focusing on indie and mid-size PC games, with detailed Steam sales estimates and trends.",
-    tags: ["insight", "dashboards", "visualization"],
+    summary: "Indie-focused market research with Steam sales estimates and trends.",
+    tags: ["insight", "dashboards", "visualization", "recommended"],
     link: "https://vginsights.com/",
     thumbnail: "/thumbnails/vginsights.webp",
     pros: ["Great for indie market research"],
     cons: ["Limited data on non-Steam platforms"]
   },
- ];
+  {
+    id: "teamretro",
+    title: "TeamRetro",
+    summary: "Online tool for running engaging retrospectives and gathering actionable team feedback.",
+    tags: ["team health", "feedback", "rituals", "recommended"],
+    link: "https://www.teamretro.com/",
+    thumbnail: "/thumbnails/teamretro.webp",
+    pros: ["Great templates for varied retro formats"],
+    cons: ["Paid plans required for larger teams"]
+  },
+  {
+    id: "untools",
+    title: "Untools",
+    summary: "Curated collection of thinking tools and frameworks to improve decision-making, problem-solving, and collaboration.",
+    tags: ["knowledge", "workflows", "documentation", "recommended"],
+    link: "https://untools.co/",
+    thumbnail: "/thumbnails/untools.webp",
+    pros: ["Wide range of practical frameworks"],
+    cons: ["Self-guided — no built-in structure"]
+  },
+  {
+    id: "testrail",
+    title: "TestRail",
+    summary: "Comprehensive test case management platform with strong reporting and integrations.",
+    tags: ["quality", "workflows", "dashboards"],
+    link: "https://www.testrail.com/",
+    thumbnail: "/thumbnails/testrail.webp",
+    pros: ["Detailed reporting features"],
+    cons: ["More setup effort than Jira-based options"]
+  },
+  {
+    id: "milanote",
+    title: "Milanote",
+    summary: "A visual workspace for creative projects — great for moodboards, research, and early planning.",
+    tags: ["visualization", "knowledge", "documentation", "recommended"],
+    link: "https://milanote.com/",
+    thumbnail: "/thumbnails/milanote.webp",
+    pros: ["Flexible visual layout"],
+    cons: ["Less suited for structured project tracking"]
+  }
+];
 
 // UTIL
 function useDebounced<T>(value: T, delay = 200) {
