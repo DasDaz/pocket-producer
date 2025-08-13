@@ -632,7 +632,6 @@ const ToolCardView: React.FC<{ tool: ToolCard; onTagClick?: (tag: string) => voi
               {t}
             </button>
           ))}
-        </div>
 			{(tool.pros?.length || tool.cons?.length) ? (
 			  <div className="mt-3 grid grid-cols-1 gap-2 text-xs">
 				{tool.pros?.length ? (
@@ -657,8 +656,6 @@ const ToolCardView: React.FC<{ tool: ToolCard; onTagClick?: (tag: string) => voi
 				) : null}
 			  </div>
 			) : null}
-          </div>
-        ) : null}
         {tool.authorNote && (
           <p className="mt-3 text-xs text-muted-foreground italic">Note: {tool.authorNote}</p>
         )}
