@@ -632,30 +632,31 @@ const ToolCardView: React.FC<{ tool: ToolCard; onTagClick?: (tag: string) => voi
               {t}
             </button>
           ))}
-			{(tool.pros?.length || tool.cons?.length) ? (
-			  <div className="mt-3 grid grid-cols-1 gap-2 text-xs">
-				{tool.pros?.length ? (
-				  <div className="flex flex-col gap-1">
-					{tool.pros.slice(0, 3).map((p, i) => (
-					  <div key={i} className="flex items-start gap-2">
-						<CheckCircle2 className="h-3.5 w-3.5 shrink-0" color="#7ED957" /> {/* pastel green */}
-						<span>{p}</span>
-					  </div>
-					))}
-				  </div>
-				) : null}
-				{tool.cons?.length ? (
-				  <div className="flex flex-col gap-1">
-					{tool.cons.slice(0, 3).map((c, i) => (
-					  <div key={i} className="flex items-start gap-2">
-						<MinusCircle className="h-3.5 w-3.5 shrink-0" color="#FF6B6B" /> {/* pastel red */}
-						<span>{c}</span>
-					  </div>
-					))}
-				  </div>
-				) : null}
-			  </div>
-			) : null}
+        </div>
+        {(tool.pros?.length || tool.cons?.length) ? (
+          <div className="mt-3 grid grid-cols-1 gap-2 text-xs">
+            {tool.pros?.length ? (
+              <div className="flex flex-col gap-1">
+                {tool.pros.slice(0, 3).map((p, i) => (
+                  <div key={i} className="flex items-start gap-2">
+                    <CheckCircle2 className="h-3.5 w-3.5 shrink-0" color="#7ED957" />
+                    <span>{p}</span>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+            {tool.cons?.length ? (
+              <div className="flex flex-col gap-1">
+                {tool.cons.slice(0, 3).map((c, i) => (
+                  <div key={i} className="flex items-start gap-2">
+                    <MinusCircle className="h-3.5 w-3.5 shrink-0" color="#FF6B6B" />
+                    <span>{c}</span>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+          </div>
+        ) : null}
         {tool.authorNote && (
           <p className="mt-3 text-xs text-muted-foreground italic">Note: {tool.authorNote}</p>
         )}
