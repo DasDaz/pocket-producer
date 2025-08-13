@@ -716,7 +716,7 @@ export default function PocketProducerApp() {
       <header className="sticky top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b">
         <div className="mx-auto max-w-6xl px-3 sm:px-4 py-3 flex items-center gap-2">
           <h1 className="text-lg sm:text-xl font-semibold tracking-tight">The Pocket Producer<span style={{ color: ACCENT_HEX }}>.</span></h1>
-          <span className="ml-auto hidden sm:inline text-sm text-muted-foreground">Indie-first • Minimal • Mobile-friendly</span>
+          <span className="ml-auto hidden sm:inline text-sm text-muted-foreground">Curated • Minimal • Mobile-friendly</span>
         </div>
       </header>
 
