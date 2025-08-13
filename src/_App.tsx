@@ -56,8 +56,6 @@ const TAGS = [
   "templates",
   "visualization",
   "workflows",
-  "localization",
-  "rituals",
 ] as const;
 export type Tag = typeof TAGS[number] | string;
 
@@ -75,7 +73,7 @@ const ICON_FILTERS: { key: string; label: string; description: string; icon: Rea
     label: "People", 
     description: "Team health, onboarding, communication, feedback", 
     icon: Users2, 
-    tags: ["team health", "onboarding", "feedback", "communication", "rituals"] 
+    tags: ["team health", "onboarding", "feedback", "communication"] 
   },
   { 
     key: "delivery", 
@@ -96,7 +94,7 @@ const ICON_FILTERS: { key: string; label: string; description: string; icon: Rea
     label: "Quality", 
     description: "Retrospectives, risk management, templates", 
     icon: HeartPulse, 
-    tags: ["retrospectives", "risk management", "templates", "localization"] 
+    tags: ["retrospectives", "risk management", "templates"] 
   },
   { 
     key: "knowledge", 
@@ -106,7 +104,6 @@ const ICON_FILTERS: { key: string; label: string; description: string; icon: Rea
     tags: ["books", "podcast", "documentation", "community", "recommended"] 
   }
 ];
-
 
 // DATA TYPES
 export type ToolCard = {
@@ -124,237 +121,13 @@ export type ToolCard = {
 
 // SAMPLE DATA
 const TOOL_DATA: ToolCard[] = [
- {
-    id: "the-culture-map",
-    title: "The Culture Map",
-    summary: "Framework for understanding and navigating cultural differences in international teams without relying on stereotypes.",
-    tags: ["books", "communication", "team health", "recommended"],
-    link: "https://www.amazon.co.uk/Culture-Map-Decoding-People-Cultures/dp/1610392760",
-    thumbnail: "/thumbnails/the-culture-map.webp",
-    pros: ["Great for multicultural awareness"],
-    cons: ["Less actionable for small, local teams"]
-  },
-  {
-    id: "the-power-of-moments",
-    title: "The Power of Moments",
-    summary: "How to create impactful, memorable experiences and rituals that resonate with teams.",
-    tags: ["books", "team health", "feedback", "rituals"],
-    link: "https://www.amazon.co.uk/Power-Moments-Certain-Experiences-Extraordinary/dp/0593079264",
-    thumbnail: "/thumbnails/power-of-moments.webp",
-    pros: ["Inspires creative leadership ideas"],
-    cons: ["Requires adaptation to workplace context"]
-  },
-  {
-    id: "creativity-inc",
-    title: "Creativity, Inc.",
-    summary: "Pixar co-founder Ed Catmull shares lessons from building one of the world’s most creative companies.",
-    tags: ["books", "team health", "communication", "recommended"],
-    link: "https://www.amazon.co.uk/Creativity-Inc-Overcoming-Unseen-Inspiration/dp/0593070100",
-    thumbnail: "/thumbnails/creativity-inc.webp",
-    pros: ["Rich with real-world leadership stories"],
-    cons: ["More inspirational than step-by-step"]
-  },
-  {
-    id: "coffee-with-butterscotch",
-    title: "Coffee with Butterscotch",
-    summary: "Three brothers running a game studio share candid stories about dev, business, and life with ADHD.",
-    tags: ["podcast", "community", "team health"],
-    link: "https://open.spotify.com/show/27Kgn6OHUaFJrvCVg1ZA7K",
-    thumbnail: "/thumbnails/coffee-with-butterscotch.webp",
-    pros: ["Honest indie dev perspective", "Entertaining and relatable"],
-    cons: ["Casual tone may not suit everyone"]
-  },
-  {
-    id: "game-makers-notebook",
-    title: "The Game Maker's Notebook",
-    summary: "Interviews with industry leaders about creative processes, challenges, and leadership in games.",
-    tags: ["podcast", "insight", "recommended"],
-    link: "https://open.spotify.com/show/2yB9jTRog4XGCKG5bpNZUA",
-    thumbnail: "/thumbnails/game-makers-notebook.webp",
-    pros: ["High-profile guests", "Industry-proven insights"],
-    cons: ["Long-form episodes require time commitment"]
-  },
-  {
-    id: "gpc-podcast",
-    title: "Game Production Community Podcast",
-    summary: "Conversations from the GPC Discord community, covering production tips, stories, and lessons.",
-    tags: ["podcast", "community"],
-    link: "https://open.spotify.com/show/4GNbLIr3CaqCrGiTWC41AT",
-    thumbnail: "/thumbnails/gpc-podcast.webp",
-    pros: ["Community-driven content"],
-    cons: ["Varied production quality"]
-  },
-  {
-    id: "favro",
-    title: "Favro",
-    summary: "Flexible project management tool combining kanban boards, timelines, and docs.",
-    tags: ["management", "project management", "workflows", "scheduling"],
-    link: "https://www.favro.com/",
-    thumbnail: "/thumbnails/favro.webp",
-    pros: ["Highly customizable workflows"],
-    cons: ["Learning curve for new users"]
-  },
-  {
-    id: "asana",
-    title: "Asana",
-    summary: "Popular task management platform with strong collaboration features.",
-    tags: ["management", "project management", "workflows"],
-    link: "https://asana.com/",
-    thumbnail: "/thumbnails/asana.webp",
-    pros: ["Strong integrations"],
-    cons: ["Can feel cluttered for small teams"]
-  },
-  {
-    id: "clickup",
-    title: "ClickUp",
-    summary: "All-in-one productivity platform for tasks, docs, goals, and more.",
-    tags: ["management", "project management", "dashboards", "workflows"],
-    link: "https://clickup.com/",
-    thumbnail: "/thumbnails/clickup.webp",
-    pros: ["Feature-rich"],
-    cons: ["Overwhelming for simple use cases"]
-  },
-  {
-    id: "basecamp",
-    title: "Basecamp",
-    summary: "Simple, communication-focused project management tool.",
-    tags: ["management", "communication", "project management"],
-    link: "https://basecamp.com/",
-    thumbnail: "/thumbnails/basecamp.webp",
-    pros: ["Easy to onboard teams"],
-    cons: ["Limited advanced PM features"]
-  },
-  {
-    id: "notion",
-    title: "Notion",
-    summary: "Highly flexible tool for notes, wikis, tasks, and databases.",
-    tags: ["management", "project management", "documentation", "recommended"],
-    link: "https://www.notion.so/",
-    thumbnail: "/thumbnails/notion.webp",
-    pros: ["All-in-one workspace"],
-    cons: ["Can become messy without structure"]
-  },
-  {
-    id: "roadmunk",
-    title: "Roadmunk",
-    summary: "Purpose-built roadmapping software with multiple visualization options.",
-    tags: ["roadmapping", "dashboards", "project management"],
-    link: "https://roadmunk.com/",
-    thumbnail: "/thumbnails/roadmunk.webp",
-    pros: ["Clear roadmap visuals"],
-    cons: ["Best suited for product teams"]
-  },
-  {
-    id: "productplan",
-    title: "ProductPlan",
-    summary: "Collaborative product roadmapping platform.",
-    tags: ["roadmapping", "dashboards", "project management"],
-    link: "https://www.productplan.com/",
-    thumbnail: "/thumbnails/productplan.webp",
-    pros: ["Easy collaboration on roadmaps"],
-    cons: ["Subscription cost for small teams"]
-  },
-  {
-    id: "monday",
-    title: "Monday.com",
-    summary: "Work OS for project tracking, task management, and roadmaps.",
-    tags: ["roadmapping", "project management", "dashboards", "workflows"],
-    link: "https://monday.com/",
-    thumbnail: "/thumbnails/monday.webp",
-    pros: ["Highly visual interface"],
-    cons: ["Some features locked behind higher tiers"]
-  },
-  {
-    id: "smartsheet",
-    title: "Smartsheet",
-    summary: "Spreadsheet-style platform for managing projects, roadmaps, and workflows.",
-    tags: ["roadmapping", "project management", "dashboards", "scheduling"],
-    link: "https://www.smartsheet.com/",
-    thumbnail: "/thumbnails/smartsheet.webp",
-    pros: ["Familiar spreadsheet feel"],
-    cons: ["Interface can feel dated"]
-  },
-  {
-    id: "miro",
-    title: "Miro",
-    summary: "Online collaborative whiteboard for brainstorming, diagrams, and workshops.",
-    tags: ["visualization", "workflows", "playtesting", "recommended"],
-    link: "https://miro.com/",
-    thumbnail: "/thumbnails/miro.webp",
-    pros: ["Excellent for decentralized teams"],
-    cons: ["License costs per user quite costly"]
-  },
-  {
-    id: "airtable",
-    title: "Airtable",
-    summary: "Database meets spreadsheet, great for organizing and linking complex data.",
-    tags: ["toolbelt", "documentation", "dashboards", "project management"],
-    link: "https://www.airtable.com/",
-    thumbnail: "/thumbnails/airtable.webp",
-    pros: ["Flexible relational database features"],
-    cons: ["Limited offline support"]
-  },
-  {
-    id: "crowdin",
-    title: "Crowdin",
-    summary: "Localization management platform for collaborative translation.",
-    tags: ["localization", "workflows", "documentation"],
-    link: "https://crowdin.com/",
-    thumbnail: "/thumbnails/crowdin.webp",
-    pros: ["Streamlines localization process"],
-    cons: ["Pricing may not fit very small projects"]
-  },
-  {
-    id: "company-of-one",
-    title: "Company of One",
-    summary: "Paul Jarvis challenges the growth-at-all-costs mindset, focusing instead on building a sustainable, intentional business that works for you.",
-    tags: ["books", "project management"],
-    link: "https://www.amazon.co.uk/Company-One-Staying-Small-Business/dp/0241470462",
-    thumbnail: "/thumbnails/company-of-one.webp",
-    pros: ["Encourages sustainable business thinking"],
-    cons: ["Not a step-by-step operations guide"]
-  },
-  {
-    id: "four-thousand-weeks",
-    title: "Four Thousand Weeks",
-    summary: "Oliver Burkeman reframes time management around our finite lifespan, encouraging focus on what truly matters over endless productivity.",
-    tags: ["books", "scheduling", "team health"],
-    link: "https://www.amazon.co.uk/Four-Thousand-Weeks-Management-Mortals/dp/1847924018",
-    thumbnail: "/thumbnails/four-thousand-weeks.webp",
-    pros: ["Life-changing perspective on time"],
-    cons: ["Philosophical rather than tactical"]
-  },
-  {
-    id: "newzoo",
-    title: "Newzoo",
-    summary: "Leading market intelligence platform for games, esports, and mobile, offering global market reports, analytics, and forecasts.",
-    tags: ["insight", "dashboards", "visualization", "recommended"],
-    link: "https://newzoo.com/",
-    thumbnail: "/thumbnails/newzoo.webp",
-    pros: ["Industry-standard data source"],
-    cons: ["Full reports behind paywall"]
-  },
-  {
-    id: "steamdb",
-    title: "SteamDB",
-    summary: "Unofficial but widely used database tracking Steam game statistics, pricing history, player counts, and app metadata.",
-    tags: ["insight", "dashboards", "visualization"],
-    link: "https://steamdb.info/",
-    thumbnail: "/thumbnails/steamdb.webp",
-    pros: ["Up-to-date store and player data"],
-    cons: ["Unofficial, data accuracy may vary"]
-  },
-  {
-    id: "vginsights",
-    title: "VG Insights",
-    summary: "Market research platform focusing on indie and mid-size PC games, with detailed Steam sales estimates and trends.",
-    tags: ["insight", "dashboards", "visualization"],
-    link: "https://vginsights.com/",
-    thumbnail: "/thumbnails/vginsights.webp",
-    pros: ["Great for indie market research"],
-    cons: ["Limited data on non-Steam platforms"]
-  },
- ];
+  { id: "story-map-101", title: "Story Mapping 101", summary: "Visualize features along a backbone and slices for scope alignment.", tags: ["visualization", "planning", "roadmapping", "documentation"], link: "https://example.com/story-mapping", thumbnail: "https://picsum.photos/seed/storymap/640/360", authorNote: "Great for defining vertical slices.", pros: ["Shared language", "Clarifies slices"], cons: ["Needs facilitation"] },
+  { id: "retro-card-pack", title: "Retro Card Pack", summary: "Prompt cards for healthier retros and concrete experiments.", tags: ["retrospectives", "team health", "templates", "feedback"], link: "https://example.com/retro-cards", thumbnail: "https://picsum.photos/seed/retro/640/360", pros: ["Low prep"], cons: ["Can feel gimmicky if overused"] },
+  { id: "scope-slicer", title: "Scope Slicer", summary: "Impact/Effort matrix to cut scope quickly pre-demo.", tags: ["risk management", "workflows", "planning"], link: "https://example.com/scope-slicer", thumbnail: "https://picsum.photos/seed/scope/640/360", pros: ["Fast to teach", "Demo-friendly"], cons: ["Subjective scoring"] },
+  { id: "playtest-discord", title: "Playtest Discord Finder", summary: "Directory of Discords to recruit playtesters fast.", tags: ["playtesting", "community", "feedback", "communication"], link: "https://example.com/playtest-discord", thumbnail: "https://picsum.photos/seed/discord/640/360" },
+  { id: "jira-quickflows", title: "Jira Quickflows", summary: "Minimal Jira workflows with lightweight automation.", tags: ["workflows", "automation", "bug tracking", "documentation"], link: "https://example.com/jira-quickflows", thumbnail: "https://picsum.photos/seed/jira/640/360" },
+  { id: "capacity-lite", title: "Capacity Lite", summary: "One‑pager to model capacity with vacations & events.", tags: ["capacity planning", "scheduling", "project management", "templates", "recommended"], link: "https://example.com/capacity-lite", thumbnail: "https://picsum.photos/seed/capacity/640/360" },
+];
 
 // UTIL
 function useDebounced<T>(value: T, delay = 200) {
