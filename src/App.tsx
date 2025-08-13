@@ -52,6 +52,7 @@ const TAGS = [
 	"roadmapping",
 	"scheduling",
 	"team health",
+	"testing",
 	"toolbelt",
 	"visualization",
 	"workflows"
@@ -72,7 +73,7 @@ const ICON_FILTERS: { key: string; label: string; description: string; icon: Rea
     label: "People", 
     description: "Team health, onboarding, communication, feedback", 
     icon: Users2, 
-    tags: ["team health", "onboarding", "feedback", "communication", "rituals"] 
+    tags: ["team health", "onboarding", "feedback", "communication", "rituals", "retrospectives"] 
   },
   { 
     key: "delivery", 
@@ -93,7 +94,7 @@ const ICON_FILTERS: { key: string; label: string; description: string; icon: Rea
     label: "Quality", 
     description: "Retrospectives, risk management, templates", 
     icon: HeartPulse, 
-    tags: ["retrospectives", "risk management", "templates", "localization"] 
+    tags: ["risk management", "templates", "localization", "testing"] 
   },
   { 
     key: "inspiration", 
@@ -375,7 +376,7 @@ const TOOL_DATA: ToolCard[] = [
     id: "testrail",
     title: "TestRail",
     summary: "Comprehensive test case management platform with strong reporting and integrations.",
-    tags: ["quality", "workflows", "dashboards"],
+    tags: ["quality", "workflows", "dashboards", "testing"],
     link: "https://www.testrail.com/",
     thumbnail: "/thumbnails/testrail.webp",
     pros: ["Detailed reporting features"],
