@@ -372,7 +372,7 @@ const ToolCardView: React.FC<{ tool: ToolCard; onTagClick?: (tag: string) => voi
               <div className="flex flex-col gap-1">
                 {tool.pros.slice(0, 3).map((p, i) => (
                   <div key={i} className="flex items-start gap-2">
-                    <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
+                    <CheckCircle2 className="h-3.5 w-3.5 shrink-0" color="#7ED957" />
                     <span>{p}</span>
                   </div>
                 ))}
@@ -382,7 +382,7 @@ const ToolCardView: React.FC<{ tool: ToolCard; onTagClick?: (tag: string) => voi
               <div className="flex flex-col gap-1">
                 {tool.cons.slice(0, 3).map((c, i) => (
                   <div key={i} className="flex items-start gap-2">
-                    <MinusCircle className="h-3.5 w-3.5 shrink-0" />
+                    <MinusCircle className="h-3.5 w-3.5 shrink-0" color="#FF6B6B" />
                     <span>{c}</span>
                   </div>
                 ))}
@@ -547,9 +547,6 @@ export default function PocketProducerApp() {
 
         {/* Footer helper */}
         <div className="mt-10 text-center text-sm text-muted-foreground">
-          <p>
-            Add or edit content in <code>TOOL_DATA</code>. Icon groups live in <code>ICON_FILTERS</code>.
-          </p>
           <p className="mt-1">Designed mobile-first. Try it on your phone ✨</p>
         </div>
         <div className="mt-6 flex justify-center">
