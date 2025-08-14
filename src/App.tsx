@@ -812,7 +812,7 @@ export default function PocketProducerApp() {
 
         {/* Footer helper */}
         <div className="mt-10 text-center text-sm text-muted-foreground">
-          <p className="mt-1">Designed mobile-first. Try it on your phone ✨</p>
+          <p className="mt-1">Want more like this? Help me stay caffinated ✨</p>
         </div>
         <div className="mt-6 flex justify-center">
           <a href={BUY_ME_A_COFFEE_URL} target="_blank" rel="noreferrer">
