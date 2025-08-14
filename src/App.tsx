@@ -225,7 +225,7 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "notion",
     title: "Notion",
-    summary: "Docs, wikis, and tasks in one space — brilliant if kept tidy, chaotic if not.",
+    summary: "Docs, wikis, and tasks in one space - brilliant if kept tidy, chaotic if not.",
     tags: ["management", "project management", "documentation", "recommended"],
     link: "https://www.notion.so/",
     thumbnail: "/thumbnails/notion.webp",
@@ -285,7 +285,7 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "airtable",
     title: "Airtable",
-    summary: "Database meets spreadsheet — flexible and great for linking complex data.",
+    summary: "Database meets spreadsheet - flexible and great for linking complex data.",
     tags: ["toolbelt", "documentation", "dashboards", "project management"],
     link: "https://www.airtable.com/",
     thumbnail: "/thumbnails/airtable.webp",
@@ -307,7 +307,7 @@ const TOOL_DATA: ToolCard[] = [
     title: "Company of One",
     summary: "Challenges the growth-at-all-costs mindset and promotes sustainable business.",
     tags: ["books", "project management"],
-    link: "https://www.amazon.co.uk/Company-One-Staying-Small-Business/dp/0241470462",
+    link: "https://amzn.eu/d/9JWIxsO",
     thumbnail: "/thumbnails/company-of-one.webp",
     pros: ["Encourages sustainable business thinking"],
     cons: ["Not a step-by-step operations guide"]
@@ -315,7 +315,7 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "four-thousand-weeks",
     title: "Four Thousand Weeks",
-    summary: "Reframes time management around our finite lifespan — focus on what matters.",
+    summary: "Reframes time management around our finite lifespan - focus on what matters.",
     tags: ["books", "scheduling", "team health"],
     link: "https://www.amazon.co.uk/Four-Thousand-Weeks-Management-Mortals/dp/1847924018",
     thumbnail: "/thumbnails/four-thousand-weeks.webp",
@@ -385,7 +385,7 @@ const TOOL_DATA: ToolCard[] = [
   {
     id: "milanote",
     title: "Milanote",
-    summary: "A visual workspace for creative projects — great for moodboards, research, and early planning.",
+    summary: "A visual workspace for creative projects - great for moodboards, research, and early planning.",
     tags: ["visualization", "documentation"],
     link: "https://milanote.com/",
     thumbnail: "/thumbnails/milanote.webp",
